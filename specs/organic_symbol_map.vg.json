@@ -79,7 +79,7 @@
             "domain": ["Under 1%", "1% to 5%", "5% to 15%", "15% or more"],
             "range": ["#B5D3E0", "#5B9DBA", "#1F6E8C", "#0B3D52"]
           },
-          "legend": {"orient": "top-left", "direction": "vertical", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0, "offset": 0, "padding": 0}
+          "legend": {"orient": "top-left", "direction": "vertical", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0, "offset": 12, "padding": 0}
         },
         "opacity": {
           "condition": {
