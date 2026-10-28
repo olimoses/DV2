@@ -15,17 +15,17 @@
     },
     {
       "name": "zs",
-      "expr": "min(width / (region == 'Europe' ? 0.9655 : region == 'Africa' ? 1.0526 : region == 'Asia' ? 1.8796 : region == 'North America' ? 1.0938 : region == 'South America' ? 0.7217 : region == 'Oceania' ? 1.1707 : 5.4131), height / (region == 'Europe' ? 0.5504 : region == 'Africa' ? 1.4247 : region == 'Asia' ? 1.3368 : region == 'North America' ? 0.973 : region == 'South America' ? 1.2946 : region == 'Oceania' ? 0.8084 : 2.3535)) * 0.94"
+      "expr": "min(width / (region == 'Europe' ? 1.1507 : region == 'Africa' ? 1.0526 : region == 'Asia' ? 1.8796 : region == 'North America' ? 1.0938 : region == 'South America' ? 0.7217 : region == 'Oceania' ? 1.1707 : 5.4131), height / (region == 'Europe' ? 0.5688 : region == 'Africa' ? 1.4247 : region == 'Asia' ? 1.3368 : region == 'North America' ? 0.973 : region == 'South America' ? 1.2946 : region == 'Oceania' ? 0.8084 : 2.3535)) * (region == 'World' ? 1 : 0.94)"
     }
   ],
   "projection": {
     "type": "equalEarth",
     "rotate": {
-      "expr": "[-(region == 'Europe' ? 10 : region == 'Africa' ? 17 : region == 'Asia' ? 88 : region == 'North America' ? -92 : region == 'South America' ? -60 : region == 'Oceania' ? 150 : 0), 0, 0]"
+      "expr": "[-(region == 'Europe' ? 8 : region == 'Africa' ? 17 : region == 'Asia' ? 88 : region == 'North America' ? -92 : region == 'South America' ? -60 : region == 'Oceania' ? 150 : 0), 0, 0]"
     },
     "scale": {"expr": "zs"},
     "translate": {
-      "expr": "[width / 2 - zs * (region == 'Europe' ? 0 : region == 'Africa' ? 0 : region == 'Asia' ? -0.0075 : region == 'North America' ? 0.0075 : region == 'South America' ? 0.0301 : region == 'Oceania' ? 0.015 : 0), height / 2 - zs * (region == 'Europe' ? -0.9423 : region == 'Africa' ? -0.027 : region == 'Asia' ? -0.4463 : region == 'North America' ? -0.6281 : region == 'South America' ? 0.3851 : region == 'Oceania' ? 0.5054 : -0.13)]"
+      "expr": "[width / 2 - zs * (region == 'Europe' ? -0.0624 : region == 'Africa' ? 0 : region == 'Asia' ? -0.0075 : region == 'North America' ? 0.0075 : region == 'South America' ? 0.0301 : region == 'Oceania' ? 0.015 : 0), height / 2 - zs * (region == 'Europe' ? -0.9331 : region == 'Africa' ? -0.027 : region == 'Asia' ? -0.4463 : region == 'North America' ? -0.6281 : region == 'South America' ? 0.3851 : region == 'Oceania' ? 0.5054 : -0.13)]"
     }
   },
   "layer": [
@@ -70,7 +70,7 @@
           "title": "Organic farmland (hectares)",
           "scale": {"type": "linear", "zero": true, "range": [30, 5200]},
           "legend": {
-            "orient": "bottom",
+            "orient": "bottom-left",
             "direction": "horizontal",
             "title": "Organic farmland",
             "values": [1000000, 10000000, 20000000],
@@ -79,7 +79,9 @@
             "symbolStrokeColor": "#1E2B26",
             "symbolStrokeWidth": 0.5,
             "titleLimit": 0,
-            "columnPadding": 14
+            "columnPadding": 14,
+            "padding": 0,
+            "offset": 0
           }
         },
         "color": {
@@ -90,7 +92,7 @@
             "domain": ["Under 1%", "1% to 5%", "5% to 15%", "15% or more"],
             "range": ["#A7CBB3", "#5E9E78", "#2F6B4F", "#0F3A26"]
           },
-          "legend": {"orient": "bottom", "direction": "horizontal", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0}
+          "legend": {"orient": "top-left", "direction": "vertical", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0, "offset": 0, "padding": 0}
         },
         "opacity": {
           "condition": {
