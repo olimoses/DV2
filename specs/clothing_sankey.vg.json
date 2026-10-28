@@ -104,6 +104,14 @@
         {"type": "formula", "expr": "max(1, datum.tonnes * ky)", "as": "w"},
         {"type": "linkpath", "orient": "horizontal", "shape": "diagonal", "sourceX": "sx", "sourceY": "sy", "targetX": "tx", "targetY": "ty"}
       ]
+    },
+    {
+      "name": "notes",
+      "source": "nodes",
+      "transform": [
+        {"type": "filter", "expr": "datum.name == 'Resold in Australia' || datum.name == 'Landfill'"},
+        {"type": "formula", "expr": "datum.name == 'Landfill' ? 'Over half (57%) of all our unwanted clothing' : 'Only 13% of all our unwanted clothing'", "as": "note"}
+      ]
     }
   ],
   "scales": [
@@ -111,7 +119,7 @@
       "name": "kindColor",
       "type": "ordinal",
       "domain": ["start", "reuse", "export", "energy", "waste"],
-      "range": ["#4A5650", "#2F6B4F", "#C27B2E", "#9AA39E", "#5E2E0E"]
+      "range": ["#4A5650", "#1F6E8C", "#C27B2E", "#9AA39E", "#5E2E0E"]
     }
   ],
   "marks": [
@@ -174,6 +182,40 @@
           "fontSize": {"value": 12},
           "fontWeight": {"value": 600},
           "fill": {"value": "#1E2B26"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "notes"},
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.px + nodeWidth + 6"},
+          "y": {"signal": "(datum.py0 + datum.py1) / 2 + 15"},
+          "text": {"field": "note"},
+          "baseline": {"value": "middle"},
+          "font": {"value": "Bricolage Grotesque, Helvetica, Arial, sans-serif"},
+          "fontSize": {"value": 11},
+          "fontWeight": {"value": 700},
+          "stroke": {"value": "#F4F2EC"},
+          "strokeWidth": {"value": 4},
+          "strokeJoin": {"value": "round"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "notes"},
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.px + nodeWidth + 6"},
+          "y": {"signal": "(datum.py0 + datum.py1) / 2 + 15"},
+          "text": {"field": "note"},
+          "baseline": {"value": "middle"},
+          "font": {"value": "Bricolage Grotesque, Helvetica, Arial, sans-serif"},
+          "fontSize": {"value": 11},
+          "fontWeight": {"value": 700},
+          "fill": {"signal": "datum.name == 'Landfill' ? '#6B3410' : '#1F6E8C'"}
         }
       }
     }

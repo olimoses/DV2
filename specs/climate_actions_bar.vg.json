@@ -70,7 +70,7 @@
               "Other actions"
             ],
             "range": [
-              "#2F6B4F",
+              "#1F6E8C",
               "#C27B2E",
               "#C9CFCA"
             ]
@@ -112,6 +112,11 @@
           "field": "pct_label"
         }
       }
+    },
+    {
+      "data": {"values": [{"action": "Buy sustainably certified food", "pct": 23, "t": "← fewer than 1 in 4"}]},
+      "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 38, "fontSize": 12, "fontWeight": 700, "color": "#9A5B17"},
+      "encoding": {"text": {"field": "t"}}
     }
   ]
 }

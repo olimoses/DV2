@@ -57,14 +57,14 @@
     {
       "mark": {"type": "line", "strokeWidth": 1, "opacity": 0.35, "interpolate": "monotone"},
       "encoding": {
-        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#1F6E8C", "#7FB3CB", "#B4BCB6"]}, "legend": null}
       }
     },
     {
       "mark": {"type": "line", "strokeWidth": 3.5, "interpolate": "monotone"},
       "encoding": {
         "y": {"field": "avg12", "type": "quantitative"},
-        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#1F6E8C", "#7FB3CB", "#B4BCB6"]}, "legend": null}
       }
     },
     {
@@ -73,7 +73,7 @@
       "encoding": {
         "y": {"field": "avg12", "type": "quantitative"},
         "text": {"field": "label"},
-        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#1F6E8C", "#7FB3CB", "#B4BCB6"]}, "legend": null}
       }
     },
     {
@@ -82,7 +82,7 @@
       "encoding": {
         "y": {"field": "avg12", "type": "quantitative"},
         "text": {"field": "label"},
-        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#1F6E8C", "#7FB3CB", "#B4BCB6"]}, "legend": null}
       }
     },
     {
@@ -91,7 +91,7 @@
       "encoding": {
         "y": {"field": "avg12", "type": "quantitative"},
         "text": {"field": "label"},
-        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#1F6E8C", "#7FB3CB", "#B4BCB6"]}, "legend": null}
       }
     },
     {
@@ -109,6 +109,15 @@
           {"field": "Charity shop", "type": "quantitative", "title": "Charity shops"},
           {"field": "Used good", "type": "quantitative", "title": "Used goods"}
         ]
+      }
+    },
+    {
+      "data": {"values": [{"d": "2017-03-01", "v": 7, "t": "2016: almost no one searched for Depop"}]},
+      "mark": {"type": "text", "align": "left", "baseline": "bottom", "fontSize": 12, "fontWeight": 700, "color": "#1F6E8C"},
+      "encoding": {
+        "x": {"field": "d", "type": "temporal"},
+        "y": {"field": "v", "type": "quantitative"},
+        "text": {"field": "t"}
       }
     }
   ]

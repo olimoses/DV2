@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Chart 6: Proportional symbol map of certified organic farmland by country, 2023 (Equal Earth projection). Circle area = organic hectares; colour = organic share of the country's farmland. Buttons zoom to a region and fade countries outside it. Source: Our World in Data, based on FAO (2025); regions from the UN M49 standard.",
+  "description": "Chart 6: Proportional symbol map of certified organic farmland by country, 2023 (Equal Earth projection). Circle area = organic hectares; colour = organic share of the country's farmland. Nested-circle size legend drawn with the same size scale as the data. Buttons zoom to a region and fade countries outside it. Source: Our World in Data, based on FAO (2025); regions from the UN M49 standard.",
   "width": "container",
   "height": 440,
   "params": [
@@ -36,11 +36,11 @@
         {"filter": "datum.id != 10"},
         {"lookup": "id", "from": {"data": {"url": "data/country_continents.csv"}, "key": "id", "fields": ["continent"]}}
       ],
-      "mark": {"type": "geoshape", "stroke": "#F7F8F5", "strokeWidth": 0.5, "clip": true},
+      "mark": {"type": "geoshape", "stroke": "#F4F2EC", "strokeWidth": 0.5, "clip": true},
       "encoding": {
         "color": {
-          "condition": {"test": "region == 'World' || datum.continent == region", "value": "#E3E6E1"},
-          "value": "#EEF0EC"
+          "condition": {"test": "region == 'World' || datum.continent == region", "value": "#E2E0D8"},
+          "value": "#ECEAE3"
         }
       }
     },
@@ -69,20 +69,7 @@
           "type": "quantitative",
           "title": "Organic farmland (hectares)",
           "scale": {"type": "linear", "zero": true, "range": [30, 5200]},
-          "legend": {
-            "orient": "bottom-left",
-            "direction": "horizontal",
-            "title": "Organic farmland",
-            "values": [1000000, 10000000, 20000000],
-            "labelExpr": "format(datum.value / 1000000, ',.0f') + ' million ha'",
-            "symbolFillColor": "#9AA39E",
-            "symbolStrokeColor": "#1E2B26",
-            "symbolStrokeWidth": 0.5,
-            "titleLimit": 0,
-            "columnPadding": 14,
-            "padding": 0,
-            "offset": 0
-          }
+          "legend": null
         },
         "color": {
           "field": "share_band",
@@ -90,7 +77,7 @@
           "title": "Organic share of its farmland",
           "scale": {
             "domain": ["Under 1%", "1% to 5%", "5% to 15%", "15% or more"],
-            "range": ["#A7CBB3", "#5E9E78", "#2F6B4F", "#0F3A26"]
+            "range": ["#B5D3E0", "#5B9DBA", "#1F6E8C", "#0B3D52"]
           },
           "legend": {"orient": "top-left", "direction": "vertical", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0, "offset": 0, "padding": 0}
         },
@@ -109,6 +96,51 @@
           {"field": "share_label", "title": "Share of its farmland"}
         ]
       }
+    },
+        {
+      "data": {
+        "values": [
+          {"organic_ha": 50000000, "r": 35.02, "label": "50 million ha"},
+          {"organic_ha": 20000000, "r": 22.25, "label": "20 million ha"},
+          {"organic_ha": 10000000, "r": 15.85, "label": "10 million ha"},
+          {"organic_ha": 1000000, "r": 5.65, "label": "1 million ha"}
+        ]
+      },
+      "transform": [
+        {"calculate": "200 - datum.r", "as": "cy"},
+        {"calculate": "200 - 2 * datum.r", "as": "ty"}
+      ],
+      "layer": [
+        {
+          "mark": {"type": "circle", "fill": "#B9C0BB", "fillOpacity": 0.35, "stroke": "#4A5650", "strokeWidth": 0.8},
+          "encoding": {
+            "x": {"value": 42},
+            "y": {"field": "cy", "type": "quantitative", "scale": null},
+            "size": {"field": "organic_ha", "type": "quantitative"}
+          }
+        },
+        {
+          "mark": {"type": "rule", "stroke": "#4A5650", "strokeWidth": 0.6, "strokeDash": [2, 2]},
+          "encoding": {
+            "x": {"value": 42},
+            "x2": {"value": 90},
+            "y": {"field": "ty", "type": "quantitative", "scale": null}
+          }
+        },
+        {
+          "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 11, "color": "#1E2B26"},
+          "encoding": {
+            "x": {"value": 94},
+            "y": {"field": "ty", "type": "quantitative", "scale": null},
+            "text": {"field": "label"}
+          }
+        },
+        {
+          "data": {"values": [{"t": "Organic farmland"}]},
+          "mark": {"type": "text", "align": "left", "baseline": "bottom", "fontSize": 11, "fontWeight": 700, "color": "#1E2B26", "x": 0, "y": 118},
+          "encoding": {"text": {"field": "t"}}
+        }
+      ]
     },
     {
       "data": {

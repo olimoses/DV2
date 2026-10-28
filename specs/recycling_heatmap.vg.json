@@ -23,7 +23,7 @@
       "type": "nominal",
       "sort": ["SA", "NSW", "WA", "ACT", "Vic", "Tas", "Qld", "NT"],
       "title": null,
-      "axis": {"orient": "top", "labelAngle": 0, "domain": false, "ticks": false, "labelFontWeight": 600, "labelFontSize": 12}
+      "axis": {"orient": "top", "labelAngle": 0, "domain": false, "ticks": false, "labelFontWeight": 600, "labelFontSize": 12, "labelExpr": "upper(datum.value)"}
     },
     "y": {
       "field": "material",
@@ -36,7 +36,7 @@
         "labelLimit": 0,
         "labelFontSize": 12,
         "labelPadding": 8,
-        "labelColor": {"condition": {"test": "datum.value == 'Textiles, leather & rubber'", "value": "#C27B2E"}, "value": "#1E2B26"},
+        "labelColor": {"condition": {"test": "datum.value == 'Textiles, leather & rubber'", "value": "#6B3410"}, "value": "#1E2B26"},
         "labelFontWeight": {"condition": {"test": "datum.value == 'Textiles, leather & rubber'", "value": 700}, "value": 400}
       }
     }
@@ -50,7 +50,7 @@
           "field": "recycling_rate_pct",
           "type": "quantitative",
           "title": "Share recycled",
-          "scale": {"domain": [0, 100], "range": ["#F1EDE3", "#9CC2A8", "#235C40"]},
+          "scale": {"domain": [0, 100], "range": ["#F1EDE3", "#9CC5D6", "#164E66"]},
           "legend": {"orient": "bottom", "direction": "horizontal", "gradientLength": 220, "values": [0, 25, 50, 75, 100], "labelExpr": "datum.value + '%'", "titleLimit": 0}
         },
         "stroke": {"condition": {"param": "hover_cell", "empty": false, "value": "#1E2B26"}, "value": "#F7F8F5"},
@@ -68,6 +68,11 @@
         "text": {"field": "cell_label"},
         "color": {"condition": {"test": "datum.recycling_rate_pct >= 60", "value": "#FFFFFF"}, "value": "#1E2B26"}
       }
+    },
+    {
+      "data": {"values": [{"material": "Textiles, leather & rubber"}]},
+      "mark": {"type": "rect", "filled": false, "stroke": "#6B3410", "strokeWidth": 2.5, "cornerRadius": 3},
+      "encoding": {"x": null, "y": {"field": "material", "type": "nominal"}}
     }
   ]
 }

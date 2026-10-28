@@ -38,7 +38,7 @@
         "color": {
           "field": "status",
           "type": "nominal",
-          "scale": {"domain": ["Claims raised concerns", "No concerns raised"], "range": ["#C27B2E", "#D9E2DC"]},
+          "scale": {"domain": ["Claims raised concerns", "No concerns raised"], "range": ["#C27B2E", "#DCDFDA"]},
           "legend": {"orient": "top", "title": null, "symbolType": "square", "symbolSize": 140, "labelFontSize": 12, "columnPadding": 24}
         },
         "opacity": {"condition": {"param": "hover_sector", "value": 1}, "value": 0.45},

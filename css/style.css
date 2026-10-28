@@ -4,7 +4,7 @@
   --ink: #1E2B26;        /* main text */
   --ink-soft: #4A5650;   /* secondary text */
   --rule: #DCE0DB;       /* hairlines */
-  --eucalypt: #2F6B4F;   /* "sustainable" accent */
+  --eucalypt: #1F6E8C;   /* "sustainable" accent */
   --ochre: #C27B2E;      /* "warning / overshoot" accent */
 
   --sans: "Bricolage Grotesque", Helvetica, Arial, sans-serif;
@@ -151,31 +151,34 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
 /* ---------- Closing ---------- */
 .closing { border-bottom: none; padding-bottom: 72px; }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer (dark band) ---------- */
 .site-footer {
+  background: #12303D;          /* deep teal-navy, a darker shade of the chart teal */
+  color: #D9DED9;
   padding: 56px 0 72px;
-  border-top: 1px solid var(--rule);
   font-family: var(--sans);
-  font-size: 0.95rem;
-  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 .site-footer h2 {
-  font-size: 1.25rem;
-  color: var(--ink);
-  margin: 0 0 12px;
-}
-.site-footer h3 {
-  font-size: 1rem;
-  color: var(--ink);
-  margin: 28px 0 8px;
+  font-size: 1.15rem;
+  color: #FFFFFF;
+  margin: 0 0 14px;
 }
 .site-footer p { margin: 0 0 10px; }
+.site-footer a {
+  color: #9FD0E4;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.site-footer a:hover { color: #FFFFFF; }
+.site-footer a:focus-visible { outline: 2px solid #E8B562; outline-offset: 2px; }
 .sources {
   margin: 0;
   padding-left: 1.1em;
-  line-height: 1.6;
 }
-.sources li { margin-bottom: 4px; }
+.sources li { margin-bottom: 6px; }
+.sources li::marker { color: #6FA9C1; }
 
 /* ---------- Small screens: columns stack ---------- */
 @media (max-width: 860px) {
@@ -224,3 +227,10 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
   .grid-2.paired > div,
   .grid-2.paired .chart { display: block; }
 }
+
+/* ---------- Emphasis in body text (colour-blind-safe) ---------- */
+strong { font-weight: 700; color: var(--ink); }
+.hl-good       { color: #1F6E8C; }   /* teal: sustainable choices and good outcomes */
+.hl-good-light { color: #3E86A5; }   /* lighter teal: charity shops line in Chapter 6 */
+.hl-warn       { color: #9A5B17; }   /* gold: price, consumption, warning signs */
+.hl-waste      { color: #6B3410; }   /* dark brown: landfill and waste */

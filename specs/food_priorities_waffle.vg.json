@@ -30,7 +30,7 @@
           "legend": null,
           "scale": {
             "domain": ["Value for money", "Quality", "Health", "Environment", "Other answers"],
-            "range": ["#C27B2E", "#7C8A83", "#7C8A83", "#2F6B4F", "#E4E7E2"]
+            "range": ["#C27B2E", "#7C8A83", "#7C8A83", "#1F6E8C", "#E4E7E2"]
           }
         },
         "tooltip": [
@@ -47,6 +47,31 @@
         "y": {"datum": 11.6},
         "text": {"field": "header"}
       }
+    },
+    {
+      "data": {
+        "values": [
+          {"x": 0.1, "y": 8.4, "t": "48 in 100 put", "c": "#9A5B17"},
+          {"x": 0.1, "y": 7.4, "t": "value for money first", "c": "#9A5B17"},
+          {"x": 36.1, "y": 8.4, "t": "Only 12 in 100 put", "c": "#1F6E8C"},
+          {"x": 36.1, "y": 7.4, "t": "the environment first", "c": "#1F6E8C"}
+        ]
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 12, "fontWeight": 700, "stroke": "#F4F2EC", "strokeWidth": 5, "strokeJoin": "round"},
+          "encoding": {"x": {"field": "x", "type": "quantitative"}, "y": {"field": "y", "type": "quantitative"}, "text": {"field": "t"}}
+        },
+        {
+          "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 12, "fontWeight": 700},
+          "encoding": {
+            "x": {"field": "x", "type": "quantitative"},
+            "y": {"field": "y", "type": "quantitative"},
+            "text": {"field": "t"},
+            "color": {"field": "c", "type": "nominal", "scale": null}
+          }
+        }
+      ]
     }
   ]
 }
