@@ -10,8 +10,8 @@
   --sans: "Bricolage Grotesque", Helvetica, Arial, sans-serif;
   --serif: "Source Serif 4", Georgia, serif;
 
-  --max: 1080px;         /* full content width (fits a 13" laptop) */
-  --measure: 66ch;       /* comfortable reading width for body text */
+  --max: 1080px;         /* outer guide lines: every block spans this width */
+  --gutter: 48px;        /* the gap between the two columns (the centre guide line) */
 }
 
 * { box-sizing: border-box; }
@@ -30,11 +30,29 @@ body {
 a { color: var(--eucalypt); text-underline-offset: 2px; }
 a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
 
+/* The one container that sets the left and right guide lines */
 .wrap {
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 24px;
 }
+
+/* ---------- Grid: two equal columns sharing the same guide lines ---------- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: var(--gutter);
+  align-items: start;
+}
+.grid-2 > * { min-width: 0; }
+
+/* Two paragraphs of text side by side */
+.text-row p { margin: 0; }
+.text-row { margin-bottom: 8px; }
+
+/* Text directly above or below a chart in a column */
+.lead-in { margin: 0 0 4px; }
+.follow-on { margin: 16px 0 0; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -80,7 +98,7 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
 
 /* ---------- Chapters ---------- */
 .chapter {
-  padding: 88px 0 24px;
+  padding: 88px 0 32px;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -90,7 +108,7 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   line-height: 1.1;
   letter-spacing: -0.01em;
-  margin: 0 0 24px;
+  margin: 0 0 28px;
 }
 
 .chapter h2 .num {
@@ -98,11 +116,9 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
   margin-right: 0.35em;
 }
 
-.prose { max-width: var(--measure); }
-.prose p { margin: 0 0 1em; }
-
 /* ---------- Charts ---------- */
 .chart { margin: 40px 0 48px; }
+.grid-2 .chart { margin: 24px 0 0; }
 
 .chart-title {
   font-family: var(--sans);
@@ -118,10 +134,9 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
   line-height: 1.45;
   color: var(--ink-soft);
   margin: 0 0 16px;
-  max-width: 70ch;
 }
 
-.vis { width: 100%; }
+.vis { width: 100%; min-width: 0; }
 
 .chart figcaption {
   font-family: var(--sans);
@@ -131,34 +146,19 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
   border-top: 1px solid var(--rule);
   padding-top: 8px;
   margin-top: 12px;
-  max-width: 90ch;
 }
 
-/* Two charts side by side */
-.chart-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 48px;
-  align-items: start;
-}
-.chart-row .chart {
-  margin-top: 32px;
-  min-width: 0;
-}
-.vis { min-width: 0; }
-
-@media (max-width: 860px) {
-  .chart-row { grid-template-columns: 1fr; gap: 0; }
-}
+/* ---------- Closing ---------- */
+.closing { border-bottom: none; padding-bottom: 72px; }
 
 /* ---------- Footer ---------- */
 .site-footer {
   padding: 56px 0 72px;
+  border-top: 1px solid var(--rule);
   font-family: var(--sans);
   font-size: 0.95rem;
   color: var(--ink-soft);
 }
-
 .site-footer h2 {
   font-size: 1.25rem;
   color: var(--ink);
@@ -169,19 +169,21 @@ a:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
   color: var(--ink);
   margin: 28px 0 8px;
 }
-.site-footer p { max-width: 75ch; }
+.site-footer p { margin: 0 0 10px; }
 .sources {
   margin: 0;
   padding-left: 1.1em;
-  max-width: 85ch;
   line-height: 1.6;
 }
 .sources li { margin-bottom: 4px; }
 
-.closing { border-bottom: none; padding-bottom: 72px; }
-.closing h2 { margin-bottom: 24px; }
+/* ---------- Small screens: columns stack ---------- */
+@media (max-width: 860px) {
+  .grid-2 { grid-template-columns: minmax(0, 1fr); }
+  .text-row p + p { margin-top: 1em; }
+  .grid-2 > div + div { margin-top: 48px; }
+}
 
-/* ---------- Small screens ---------- */
 @media (max-width: 640px) {
   body { font-size: 17px; }
   .hero { padding-top: 48px; }

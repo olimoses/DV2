@@ -10,8 +10,8 @@
       "mark": {"type": "geoshape", "fill": "#EDF1EE", "stroke": "#DCE0DB", "strokeWidth": 0.5}
     },
     {
-      "data": {"url": "data/world-110m.json", "format": {"type": "topojson", "feature": "countries"}},
-      "transform": [{"filter": "datum.id != 10"}],
+      "data": {"url": "data/world-50m.json", "format": {"type": "topojson", "feature": "countries"}},
+      "transform": [{"calculate": "toNumber(datum.id)", "as": "id"}, {"filter": "datum.id != 10"}],
       "mark": {"type": "geoshape", "fill": "#E2E5E1", "stroke": "#F7F8F5", "strokeWidth": 0.6}
     },
     {

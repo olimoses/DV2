@@ -13,5 +13,5 @@
 | pwc_*.csv | PwC, Voice of the Consumer Survey 2025 (Australia, n=1,002) | Jan-Feb 2025 | Transcribed: food priorities p.5 (sums to 101% due to rounding); sustainable practices p.12; climate actions p.11 (base: respondents worried about climate change). |
 | accc_greenwashing_sweep.csv | ACCC, Greenwashing by businesses in Australia (March 2023) | Sweep Oct 2022 | Transcribed from p.1-2; 141 of 247 = 57%. |
 | google_trends_*.csv | Google Trends, Australia, past 5 years | Oct 2021-Oct 2026 | Reshaped to long format. Values are relative interest (100 = peak), not search counts. Last month may be partial. |
-| world-110m.json | vega-datasets (Natural Earth) | - | Unchanged. |
+| world-50m.json | vega-datasets (Natural Earth) | - | Unchanged. |
 | australia_states.json | rowanhogan/australian-states (GitHub, ABS boundaries) | - | Simplified and converted to TopoJSON with mapshaper. |

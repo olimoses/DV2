@@ -1,45 +1,52 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Chart 2: Waffle charts (small multiples). What Australians rank as most important when choosing food. Each grid is 100 people. Source: PwC Voice of the Consumer Survey 2025, p.5.",
+  "description": "Chart 2: Waffle charts (small multiples drawn in one responsive view). What Australians rank as most important when choosing food. Each 10 x 10 grid is 100 people. Source: PwC Voice of the Consumer Survey 2025, p.5.",
+  "width": "container",
+  "height": 280,
   "data": {"url": "data/pwc_food_priorities.csv"},
   "transform": [
+    {"window": [{"op": "row_number", "as": "rank"}], "sort": [{"field": "pct", "order": "descending"}]},
+    {"calculate": "datum.rank - 1", "as": "panel"},
+    {"calculate": "datum.factor + ': ' + datum.pct + '%'", "as": "header"},
     {"calculate": "sequence(1, 101)", "as": "cells"},
     {"flatten": ["cells"], "as": ["i"]},
-    {"calculate": "floor((datum.i - 1) / 10)", "as": "row"},
-    {"calculate": "(datum.i - 1) % 10", "as": "col"},
-    {"calculate": "datum.i <= datum.pct ? datum.factor : 'Other answers'", "as": "fill_group"},
-    {"calculate": "datum.factor + ': ' + datum.pct + '%'", "as": "header"}
+    {"calculate": "datum.panel * 12 + (datum.i - 1) % 10", "as": "x0"},
+    {"calculate": "datum.x0 + 0.82", "as": "x1"},
+    {"calculate": "floor((datum.i - 1) / 10)", "as": "y0"},
+    {"calculate": "datum.y0 + 0.82", "as": "y1"},
+    {"calculate": "datum.i <= datum.pct ? datum.factor : 'Other answers'", "as": "fill_group"}
   ],
-  "facet": {
-    "column": {
-      "field": "header",
-      "type": "nominal",
-      "sort": {"field": "pct", "order": "descending"},
-      "title": null,
-      "header": {"labelFontSize": 14, "labelFontWeight": 700, "labelColor": "#1E2B26", "labelAnchor": "start", "labelPadding": 8, "labelLimit": 0}
+  "layer": [
+    {
+      "mark": {"type": "rect", "cornerRadius": 1.5},
+      "encoding": {
+        "x": {"field": "x0", "type": "quantitative", "axis": null, "scale": {"domain": [0, 45.82], "nice": false, "zero": true}},
+        "x2": {"field": "x1"},
+        "y": {"field": "y0", "type": "quantitative", "axis": null, "scale": {"domain": [0, 11.6], "nice": false, "zero": true}},
+        "y2": {"field": "y1"},
+        "color": {
+          "field": "fill_group",
+          "type": "nominal",
+          "legend": null,
+          "scale": {
+            "domain": ["Value for money", "Quality", "Health", "Environment", "Other answers"],
+            "range": ["#C27B2E", "#7C8A83", "#7C8A83", "#2F6B4F", "#E4E7E2"]
+          }
+        },
+        "tooltip": [
+          {"field": "factor", "title": "Most important factor"},
+          {"field": "pct", "title": "% of Australians"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.i == 1"}],
+      "mark": {"type": "text", "align": "left", "baseline": "bottom", "fontSize": 14, "fontWeight": 700, "color": "#1E2B26"},
+      "encoding": {
+        "x": {"field": "x0", "type": "quantitative"},
+        "y": {"datum": 11.6},
+        "text": {"field": "header"}
+      }
     }
-  },
-  "spacing": 36,
-  "spec": {
-    "width": 190,
-    "height": 190,
-    "mark": {"type": "rect", "cornerRadius": 1.5},
-    "encoding": {
-      "x": {"field": "col", "type": "ordinal", "axis": null, "scale": {"paddingInner": 0.16}},
-      "y": {"field": "row", "type": "ordinal", "axis": null, "sort": "descending", "scale": {"paddingInner": 0.16}},
-      "color": {
-        "field": "fill_group",
-        "type": "nominal",
-        "legend": null,
-        "scale": {
-          "domain": ["Value for money", "Quality", "Health", "Environment", "Other answers"],
-          "range": ["#C27B2E", "#7C8A83", "#7C8A83", "#2F6B4F", "#E4E7E2"]
-        }
-      },
-      "tooltip": [
-        {"field": "factor", "title": "Most important factor"},
-        {"field": "pct", "title": "% of Australians"}
-      ]
-    }
-  }
+  ]
 }
