@@ -1,14 +1,37 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Chart 6: Proportional symbol map of certified organic farmland by country, 2023 (Equal Earth projection). Circle area = organic hectares; colour = organic share of the country's farmland. Source: Our World in Data, based on FAO (2025).",
+  "description": "Chart 6: Proportional symbol map of certified organic farmland by country, 2023 (Equal Earth projection). Circle area = organic hectares; colour = organic share of the country's farmland. Buttons zoom to each region. Source: Our World in Data, based on FAO (2025).",
   "width": "container",
   "height": 440,
-  "projection": {"type": "equalEarth"},
+  "params": [
+    {
+      "name": "region",
+      "value": "World",
+      "bind": {
+        "input": "radio",
+        "options": ["World", "Europe", "Africa", "Asia", "North America", "South America", "Oceania"],
+        "name": "Zoom to: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "equalEarth",
+    "rotate": {
+      "expr": "[-(region == 'Europe' ? 14 : region == 'Africa' ? 18 : region == 'Asia' ? 100 : region == 'North America' ? -100 : region == 'South America' ? -62 : region == 'Oceania' ? 158 : 0), 0, 0]"
+    },
+    "center": {
+      "expr": "[0, region == 'Europe' ? 51 : region == 'Africa' ? 2 : region == 'Asia' ? 30 : region == 'North America' ? 40 : region == 'South America' ? -22 : region == 'Oceania' ? -25 : 12]"
+    },
+    "scale": {
+      "expr": "width / 5.6 * (region == 'Europe' ? 4.6 : region == 'Africa' ? 1.8 : region == 'Asia' ? 2.1 : region == 'North America' ? 2.0 : region == 'South America' ? 2.4 : region == 'Oceania' ? 3.0 : 1)"
+    },
+    "translate": {"expr": "[width / 2, height / 2]"}
+  },
   "layer": [
     {
       "data": {"url": "data/world-50m.json", "format": {"type": "topojson", "feature": "countries"}},
       "transform": [{"calculate": "toNumber(datum.id)", "as": "id"}, {"filter": "datum.id != 10"}],
-      "mark": {"type": "geoshape", "fill": "#E3E6E1", "stroke": "#F7F8F5", "strokeWidth": 0.5}
+      "mark": {"type": "geoshape", "fill": "#E3E6E1", "stroke": "#F7F8F5", "strokeWidth": 0.5, "clip": true}
     },
     {
       "data": {"url": "data/organic_area_2023.csv"},
@@ -25,7 +48,7 @@
         {"name": "share_pick", "select": {"type": "point", "fields": ["share_band"]}, "bind": "legend"},
         {"name": "hover_c", "select": {"type": "point", "fields": ["iso3"], "on": "pointerover", "clear": "pointerout"}}
       ],
-      "mark": {"type": "circle", "stroke": "#1E2B26", "strokeWidth": 0.5},
+      "mark": {"type": "circle", "stroke": "#1E2B26", "strokeWidth": 0.5, "clip": true},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
@@ -35,7 +58,7 @@
           "title": "Organic farmland (hectares)",
           "scale": {"type": "linear", "zero": true, "range": [30, 5200]},
           "legend": {
-            "orient": "bottom-left",
+            "orient": "bottom",
             "direction": "horizontal",
             "title": "Organic farmland",
             "values": [1000000, 10000000, 20000000],
@@ -44,8 +67,6 @@
             "symbolStrokeColor": "#1E2B26",
             "symbolStrokeWidth": 0.5,
             "titleLimit": 0,
-            "offset": 0,
-            "padding": 0,
             "columnPadding": 14
           }
         },
@@ -57,7 +78,7 @@
             "domain": ["Under 1%", "1% to 5%", "5% to 15%", "15% or more"],
             "range": ["#A7CBB3", "#5E9E78", "#2F6B4F", "#0F3A26"]
           },
-          "legend": {"orient": "top-left", "direction": "vertical", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0, "offset": 0, "padding": 0}
+          "legend": {"orient": "bottom", "direction": "horizontal", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0}
         },
         "opacity": {"condition": {"param": "share_pick", "value": 0.92}, "value": 0.12},
         "strokeWidth": {"condition": {"param": "hover_c", "empty": false, "value": 2}, "value": 0.5},
@@ -77,11 +98,12 @@
           {"lon": 107, "lat": -28, "t": "mostly outback cattle grazing land"}
         ]
       },
-      "mark": {"type": "text", "align": "right", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600},
+      "mark": {"type": "text", "align": "right", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600, "clip": true},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
-                "text": {"field": "t"}
+        "text": {"field": "t"},
+        "opacity": {"condition": {"test": "region == 'World'", "value": 1}, "value": 0}
       }
     },
     {
@@ -91,20 +113,22 @@
           {"lon": -19, "lat": 44.5, "t": "a much bigger share of its farms"}
         ]
       },
-      "mark": {"type": "text", "align": "right", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600},
+      "mark": {"type": "text", "align": "right", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600, "clip": true},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
-        "text": {"field": "t"}
+        "text": {"field": "t"},
+        "opacity": {"condition": {"test": "region == 'World'", "value": 1}, "value": 0}
       }
     },
     {
       "data": {"values": [{"lon": -168, "lat": -9, "t": "Samoa: 85% of farmland is organic"}]},
-      "mark": {"type": "text", "align": "left", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600},
+      "mark": {"type": "text", "align": "left", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600, "clip": true},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
-        "text": {"field": "t"}
+        "text": {"field": "t"},
+        "opacity": {"condition": {"test": "region == 'World'", "value": 1}, "value": 0}
       }
     }
   ]
