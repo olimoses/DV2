@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Hero: the 365 days of 2026 as a grid of 73 columns x 5 rows, filled day by day. The first 75 days (up to Australia's Overshoot Day, 16 March) are teal; the rest of the year is 'borrowed'. Annotated at 16 March.",
+  "description": "Hero: the 365 days of 2026 as a grid of 73 columns x 5 rows, filled day by day. The first 75 days (up to Australia's Overshoot Day, 16 March) are light teal; the rest of the year is 'borrowed'. Annotated at 16 March. Designed for the dark hero band.",
   "width": "container",
   "height": 100,
   "data": {"sequence": {"start": 1, "stop": 366, "as": "day"}},
@@ -18,6 +18,7 @@
       "scale": {"paddingInner": 0.18},
       "axis": {
         "orient": "bottom", "domain": false, "ticks": false, "labelPadding": 6, "labelAngle": 0, "labelAlign": "left",
+        "labelColor": "#B7C3C5",
         "labelExpr": "date(datetime(2026, 0, datum.value * 5 + 1)) == 1 ? timeFormat(datetime(2026, 0, datum.value * 5 + 1), '%b') : month(datetime(2026, 0, datum.value * 5 + 5)) != month(datetime(2026, 0, datum.value * 5 + 1)) ? timeFormat(datetime(2026, 0, datum.value * 5 + 5), '%b') : ''"
       }
     },
@@ -31,8 +32,8 @@
           "field": "status",
           "type": "nominal",
           "title": null,
-          "scale": {"domain": ["Covered by this year’s resources", "Borrowed from the future"], "range": ["#1F6E8C", "#E3B76F"]},
-          "legend": {"orient": "bottom", "direction": "horizontal", "symbolType": "square", "symbolSize": 120, "labelFontSize": 13, "labelLimit": 0, "columnPadding": 28, "offset": 14}
+          "scale": {"domain": ["Covered by this year’s resources", "Borrowed from the future"], "range": ["#8CC3D9", "#E3B76F"]},
+          "legend": {"orient": "bottom", "direction": "horizontal", "symbolType": "square", "symbolSize": 120, "labelFontSize": 13, "labelLimit": 0, "columnPadding": 28, "offset": 14, "labelColor": "#D9DED9"}
         },
         "tooltip": [
           {"field": "date", "type": "temporal", "title": "Date", "format": "%-d %B"},
@@ -44,7 +45,7 @@
       "data": {"values": [{"col": 15, "row": -1, "t": "16 March: a full year’s share, used up"}]},
       "layer": [
         {
-          "mark": {"type": "rule", "color": "#1E2B26", "strokeWidth": 1.5, "xOffset": -1.5},
+          "mark": {"type": "rule", "color": "#FFFFFF", "strokeWidth": 1.5, "xOffset": -1.5},
           "encoding": {
             "x": {"field": "col", "type": "ordinal", "bandPosition": 0},
             "y": {"datum": -1},
@@ -52,7 +53,7 @@
           }
         },
         {
-          "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 4, "fontSize": 12, "fontWeight": 700, "color": "#1E2B26"},
+          "mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 4, "fontSize": 12, "fontWeight": 700, "color": "#FFFFFF"},
           "encoding": {
             "x": {"field": "col", "type": "ordinal", "bandPosition": 0},
             "y": {"field": "row", "type": "ordinal"},

@@ -234,3 +234,15 @@ strong { font-weight: 700; color: var(--ink); }
 .hl-good-light { color: #3E86A5; }   /* lighter teal: charity shops line in Chapter 6 */
 .hl-warn       { color: #9A5B17; }   /* gold: price, consumption, warning signs */
 .hl-waste      { color: #6B3410; }   /* dark brown: landfill and waste */
+
+/* ---------- Dark hero band (matches the footer) ---------- */
+.hero {
+  background: #12303D;
+  border-bottom: none;
+  padding: 72px 0 56px;
+}
+.hero h1 { color: #FFFFFF; }
+.hero .standfirst { color: #D9DED9; }
+.hero strong { color: #FFFFFF; }
+.hero-figure figcaption { color: #B7C3C5; }
+.hero .byline { color: #9FB0B4; }
