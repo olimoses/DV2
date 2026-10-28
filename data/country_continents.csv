@@ -1,0 +1,250 @@
+id,iso3,continent
+4,AFG,Asia
+248,ALA,Europe
+8,ALB,Europe
+12,DZA,Africa
+16,ASM,Oceania
+20,AND,Europe
+24,AGO,Africa
+660,AIA,North America
+10,ATA,Other
+28,ATG,North America
+32,ARG,South America
+51,ARM,Asia
+533,ABW,North America
+36,AUS,Oceania
+40,AUT,Europe
+31,AZE,Asia
+44,BHS,North America
+48,BHR,Asia
+50,BGD,Asia
+52,BRB,North America
+112,BLR,Europe
+56,BEL,Europe
+84,BLZ,North America
+204,BEN,Africa
+60,BMU,North America
+64,BTN,Asia
+68,BOL,South America
+535,BES,North America
+70,BIH,Europe
+72,BWA,Africa
+74,BVT,South America
+76,BRA,South America
+86,IOT,Africa
+96,BRN,Asia
+100,BGR,Europe
+854,BFA,Africa
+108,BDI,Africa
+132,CPV,Africa
+116,KHM,Asia
+120,CMR,Africa
+124,CAN,North America
+136,CYM,North America
+140,CAF,Africa
+148,TCD,Africa
+152,CHL,South America
+156,CHN,Asia
+162,CXR,Oceania
+166,CCK,Oceania
+170,COL,South America
+174,COM,Africa
+178,COG,Africa
+180,COD,Africa
+184,COK,Oceania
+188,CRI,North America
+384,CIV,Africa
+191,HRV,Europe
+192,CUB,North America
+531,CUW,North America
+196,CYP,Asia
+203,CZE,Europe
+208,DNK,Europe
+262,DJI,Africa
+212,DMA,North America
+214,DOM,North America
+218,ECU,South America
+818,EGY,Africa
+222,SLV,North America
+226,GNQ,Africa
+232,ERI,Africa
+233,EST,Europe
+748,SWZ,Africa
+231,ETH,Africa
+238,FLK,South America
+234,FRO,Europe
+242,FJI,Oceania
+246,FIN,Europe
+250,FRA,Europe
+254,GUF,South America
+258,PYF,Oceania
+260,ATF,Africa
+266,GAB,Africa
+270,GMB,Africa
+268,GEO,Asia
+276,DEU,Europe
+288,GHA,Africa
+292,GIB,Europe
+300,GRC,Europe
+304,GRL,North America
+308,GRD,North America
+312,GLP,North America
+316,GUM,Oceania
+320,GTM,North America
+831,GGY,Europe
+324,GIN,Africa
+624,GNB,Africa
+328,GUY,South America
+332,HTI,North America
+334,HMD,Oceania
+336,VAT,Europe
+340,HND,North America
+344,HKG,Asia
+348,HUN,Europe
+352,ISL,Europe
+356,IND,Asia
+360,IDN,Asia
+364,IRN,Asia
+368,IRQ,Asia
+372,IRL,Europe
+833,IMN,Europe
+376,ISR,Asia
+380,ITA,Europe
+388,JAM,North America
+392,JPN,Asia
+832,JEY,Europe
+400,JOR,Asia
+398,KAZ,Asia
+404,KEN,Africa
+296,KIR,Oceania
+408,PRK,Asia
+410,KOR,Asia
+414,KWT,Asia
+417,KGZ,Asia
+418,LAO,Asia
+428,LVA,Europe
+422,LBN,Asia
+426,LSO,Africa
+430,LBR,Africa
+434,LBY,Africa
+438,LIE,Europe
+440,LTU,Europe
+442,LUX,Europe
+446,MAC,Asia
+450,MDG,Africa
+454,MWI,Africa
+458,MYS,Asia
+462,MDV,Asia
+466,MLI,Africa
+470,MLT,Europe
+584,MHL,Oceania
+474,MTQ,North America
+478,MRT,Africa
+480,MUS,Africa
+175,MYT,Africa
+484,MEX,North America
+583,FSM,Oceania
+498,MDA,Europe
+492,MCO,Europe
+496,MNG,Asia
+499,MNE,Europe
+500,MSR,North America
+504,MAR,Africa
+508,MOZ,Africa
+104,MMR,Asia
+516,NAM,Africa
+520,NRU,Oceania
+524,NPL,Asia
+528,NLD,Europe
+540,NCL,Oceania
+554,NZL,Oceania
+558,NIC,North America
+562,NER,Africa
+566,NGA,Africa
+570,NIU,Oceania
+574,NFK,Oceania
+807,MKD,Europe
+580,MNP,Oceania
+578,NOR,Europe
+512,OMN,Asia
+586,PAK,Asia
+585,PLW,Oceania
+275,PSE,Asia
+591,PAN,North America
+598,PNG,Oceania
+600,PRY,South America
+604,PER,South America
+608,PHL,Asia
+612,PCN,Oceania
+616,POL,Europe
+620,PRT,Europe
+630,PRI,North America
+634,QAT,Asia
+638,REU,Africa
+642,ROU,Europe
+643,RUS,Asia
+646,RWA,Africa
+652,BLM,North America
+654,SHN,Africa
+659,KNA,North America
+662,LCA,North America
+663,MAF,North America
+666,SPM,North America
+670,VCT,North America
+882,WSM,Oceania
+674,SMR,Europe
+678,STP,Africa
+682,SAU,Asia
+686,SEN,Africa
+688,SRB,Europe
+690,SYC,Africa
+694,SLE,Africa
+702,SGP,Asia
+534,SXM,North America
+703,SVK,Europe
+705,SVN,Europe
+90,SLB,Oceania
+706,SOM,Africa
+710,ZAF,Africa
+239,SGS,South America
+728,SSD,Africa
+724,ESP,Europe
+144,LKA,Asia
+729,SDN,Africa
+740,SUR,South America
+744,SJM,Europe
+752,SWE,Europe
+756,CHE,Europe
+760,SYR,Asia
+158,TWN,Asia
+762,TJK,Asia
+834,TZA,Africa
+764,THA,Asia
+626,TLS,Asia
+768,TGO,Africa
+772,TKL,Oceania
+776,TON,Oceania
+780,TTO,North America
+788,TUN,Africa
+792,TUR,Asia
+795,TKM,Asia
+796,TCA,North America
+798,TUV,Oceania
+800,UGA,Africa
+804,UKR,Europe
+784,ARE,Asia
+826,GBR,Europe
+840,USA,North America
+581,UMI,Oceania
+858,URY,South America
+860,UZB,Asia
+548,VUT,Oceania
+862,VEN,South America
+704,VNM,Asia
+92,VGB,North America
+850,VIR,North America
+876,WLF,Oceania
+732,ESH,Africa
+887,YEM,Asia
+894,ZMB,Africa
+716,ZWE,Africa

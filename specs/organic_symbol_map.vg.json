@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Chart 6: Proportional symbol map of certified organic farmland by country, 2023 (Equal Earth projection). Circle area = organic hectares; colour = organic share of the country's farmland. Buttons zoom to each region. Source: Our World in Data, based on FAO (2025).",
+  "description": "Chart 6: Proportional symbol map of certified organic farmland by country, 2023 (Equal Earth projection). Circle area = organic hectares; colour = organic share of the country's farmland. Buttons zoom to a region and fade countries outside it. Source: Our World in Data, based on FAO (2025); regions from the UN M49 standard.",
   "width": "container",
   "height": 440,
   "params": [
@@ -12,31 +12,43 @@
         "options": ["World", "Europe", "Africa", "Asia", "North America", "South America", "Oceania"],
         "name": "Zoom to: "
       }
+    },
+    {
+      "name": "zs",
+      "expr": "min(width / (region == 'Europe' ? 0.9655 : region == 'Africa' ? 1.0526 : region == 'Asia' ? 1.8796 : region == 'North America' ? 1.0938 : region == 'South America' ? 0.7217 : region == 'Oceania' ? 1.1707 : 5.4131), height / (region == 'Europe' ? 0.5504 : region == 'Africa' ? 1.4247 : region == 'Asia' ? 1.3368 : region == 'North America' ? 0.973 : region == 'South America' ? 1.2946 : region == 'Oceania' ? 0.8084 : 2.3535)) * 0.94"
     }
   ],
   "projection": {
     "type": "equalEarth",
     "rotate": {
-      "expr": "[-(region == 'Europe' ? 14 : region == 'Africa' ? 18 : region == 'Asia' ? 100 : region == 'North America' ? -100 : region == 'South America' ? -62 : region == 'Oceania' ? 158 : 0), 0, 0]"
+      "expr": "[-(region == 'Europe' ? 10 : region == 'Africa' ? 17 : region == 'Asia' ? 88 : region == 'North America' ? -92 : region == 'South America' ? -60 : region == 'Oceania' ? 150 : 0), 0, 0]"
     },
-    "center": {
-      "expr": "[0, region == 'Europe' ? 51 : region == 'Africa' ? 2 : region == 'Asia' ? 30 : region == 'North America' ? 40 : region == 'South America' ? -22 : region == 'Oceania' ? -25 : 12]"
-    },
-    "scale": {
-      "expr": "width / 5.6 * (region == 'Europe' ? 4.6 : region == 'Africa' ? 1.8 : region == 'Asia' ? 2.1 : region == 'North America' ? 2.0 : region == 'South America' ? 2.4 : region == 'Oceania' ? 3.0 : 1)"
-    },
-    "translate": {"expr": "[width / 2, height / 2]"}
+    "scale": {"expr": "zs"},
+    "translate": {
+      "expr": "[width / 2 - zs * (region == 'Europe' ? 0 : region == 'Africa' ? 0 : region == 'Asia' ? -0.0075 : region == 'North America' ? 0.0075 : region == 'South America' ? 0.0301 : region == 'Oceania' ? 0.015 : 0), height / 2 - zs * (region == 'Europe' ? -0.9423 : region == 'Africa' ? -0.027 : region == 'Asia' ? -0.4463 : region == 'North America' ? -0.6281 : region == 'South America' ? 0.3851 : region == 'Oceania' ? 0.5054 : -0.13)]"
+    }
   },
   "layer": [
     {
       "data": {"url": "data/world-50m.json", "format": {"type": "topojson", "feature": "countries"}},
-      "transform": [{"calculate": "toNumber(datum.id)", "as": "id"}, {"filter": "datum.id != 10"}],
-      "mark": {"type": "geoshape", "fill": "#E3E6E1", "stroke": "#F7F8F5", "strokeWidth": 0.5, "clip": true}
+      "transform": [
+        {"calculate": "toNumber(datum.id)", "as": "id"},
+        {"filter": "datum.id != 10"},
+        {"lookup": "id", "from": {"data": {"url": "data/country_continents.csv"}, "key": "id", "fields": ["continent"]}}
+      ],
+      "mark": {"type": "geoshape", "stroke": "#F7F8F5", "strokeWidth": 0.5, "clip": true},
+      "encoding": {
+        "color": {
+          "condition": {"test": "region == 'World' || datum.continent == region", "value": "#E3E6E1"},
+          "value": "#EEF0EC"
+        }
+      }
     },
     {
       "data": {"url": "data/organic_area_2023.csv"},
       "transform": [
         {"filter": "datum.organic_ha >= 10000"},
+        {"lookup": "iso3", "from": {"data": {"url": "data/country_continents.csv"}, "key": "iso3", "fields": ["continent"]}},
         {
           "calculate": "datum.organic_share_pct < 1 ? 'Under 1%' : datum.organic_share_pct < 5 ? '1% to 5%' : datum.organic_share_pct < 15 ? '5% to 15%' : '15% or more'",
           "as": "share_band"
@@ -80,7 +92,13 @@
           },
           "legend": {"orient": "bottom", "direction": "horizontal", "symbolType": "circle", "symbolSize": 110, "titleLimit": 0}
         },
-        "opacity": {"condition": {"param": "share_pick", "value": 0.92}, "value": 0.12},
+        "opacity": {
+          "condition": {
+            "test": {"and": [{"param": "share_pick"}, "region == 'World' || datum.continent == region"]},
+            "value": 0.92
+          },
+          "value": 0.08
+        },
         "strokeWidth": {"condition": {"param": "hover_c", "empty": false, "value": 2}, "value": 0.5},
         "order": {"field": "organic_ha", "sort": "descending"},
         "tooltip": [
@@ -93,9 +111,8 @@
     {
       "data": {
         "values": [
-          {"lon": 107, "lat": -16, "t": "Australia: 53 million ha,"},
-          {"lon": 107, "lat": -22, "t": "more than half the world’s total,"},
-          {"lon": 107, "lat": -28, "t": "mostly outback cattle grazing land"}
+          {"lon": 107, "lat": -19, "t": "Australia: 53 million ha,"},
+          {"lon": 107, "lat": -25, "t": "mostly cattle grazing land"}
         ]
       },
       "mark": {"type": "text", "align": "right", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600, "clip": true},
