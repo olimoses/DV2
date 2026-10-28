@@ -51,7 +51,7 @@
           "type": "quantitative",
           "title": "Share recycled",
           "scale": {"domain": [0, 100], "range": ["#F1EDE3", "#9CC2A8", "#235C40"]},
-          "legend": {"orient": "bottom", "direction": "horizontal", "gradientLength": 220, "labelExpr": "datum.value + '%'", "titleLimit": 0}
+          "legend": {"orient": "bottom", "direction": "horizontal", "gradientLength": 220, "values": [0, 25, 50, 75, 100], "labelExpr": "datum.value + '%'", "titleLimit": 0}
         },
         "stroke": {"condition": {"param": "hover_cell", "empty": false, "value": "#1E2B26"}, "value": "#F7F8F5"},
         "tooltip": [

@@ -57,7 +57,7 @@
           {"lon": 135, "lat": -29.5, "t": ["SA", "73%"], "c": "#FFFFFF"},
           {"lon": 144.5, "lat": -22.5, "t": ["Qld", "51%"], "c": "#1E2B26"},
           {"lon": 146.5, "lat": -32.3, "t": ["NSW", "72%"], "c": "#FFFFFF"},
-          {"lon": 144.0, "lat": -37.15, "t": ["Vic", "62%"], "c": "#FFFFFF"},
+          {"lon": 139.6, "lat": -40.2, "t": ["Vic", "62%"], "c": "#1E2B26"},
           {"lon": 146.6, "lat": -42.1, "t": ["Tas", "59%"], "c": "#1E2B26"},
           {"lon": 154.2, "lat": -36.2, "t": ["ACT", "63%"], "c": "#1E2B26"}
         ]
@@ -71,7 +71,7 @@
       }
     },
     {
-      "data": {"values": [{"lon": 149.1, "lat": -35.3, "lon2": 152.6, "lat2": -36.0}]},
+      "data": {"values": [{"lon": 149.1, "lat": -35.3, "lon2": 152.6, "lat2": -36.0}, {"lon": 143.6, "lat": -37.2, "lon2": 140.9, "lat2": -39.3}]},
       "mark": {"type": "rule", "color": "#1E2B26", "strokeWidth": 1},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
