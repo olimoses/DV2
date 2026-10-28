@@ -2,17 +2,25 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Chart 8: Flow map of Australia's exports of worn clothing (HS 6309) by destination, 2025. Line width and circle size = tonnes. Equal Earth projection centred on 110°E so Australia sits in the middle. Destinations receiving at least 10 tonnes shown (38 of 60; 99.97% of the total). Source: UN Comtrade.",
   "width": "container",
-  "height": 470,
+  "height": 440,
+  "params": [
+    {
+      "name": "min_t",
+      "value": 100,
+      "bind": {
+        "input": "radio",
+        "options": [10, 100, 1000, 10000],
+        "labels": ["All", "100+ tonnes", "1,000+ tonnes", "10,000+ tonnes"],
+        "name": "Show lines for: "
+      }
+    }
+  ],
   "projection": {"type": "equalEarth", "rotate": [-110, 0, 0]},
   "layer": [
     {
-      "data": {"sphere": true},
-      "mark": {"type": "geoshape", "fill": "#EDF1EE", "stroke": "#DCE0DB", "strokeWidth": 0.5}
-    },
-    {
       "data": {"url": "data/world-50m.json", "format": {"type": "topojson", "feature": "countries"}},
       "transform": [{"calculate": "toNumber(datum.id)", "as": "id"}, {"filter": "datum.id != 10"}],
-      "mark": {"type": "geoshape", "fill": "#E2E5E1", "stroke": "#F7F8F5", "strokeWidth": 0.6}
+      "mark": {"type": "geoshape", "fill": "#E3E6E1", "stroke": "#F7F8F5", "strokeWidth": 0.5}
     },
     {
       "data": {"url": "data/used_clothing_exports_2025.csv"},
@@ -26,15 +34,16 @@
           "params": [
             {"name": "hover_dest", "select": {"type": "point", "fields": ["iso3"], "on": "pointerover", "clear": "pointerout"}}
           ],
+          "transform": [{"filter": "datum.tonnes >= min_t"}],
           "mark": {"type": "rule", "strokeCap": "round"},
           "encoding": {
             "longitude": {"field": "origin_lon", "type": "quantitative"},
             "latitude": {"field": "origin_lat", "type": "quantitative"},
             "longitude2": {"field": "lon"},
             "latitude2": {"field": "lat"},
-            "strokeWidth": {"field": "tonnes", "type": "quantitative", "scale": {"range": [0.6, 14]}, "legend": null},
-            "color": {"condition": {"param": "hover_dest", "empty": false, "value": "#5E2E0E"}, "value": "#C27B2E"},
-            "opacity": {"condition": {"param": "hover_dest", "empty": false, "value": 0.95}, "value": 0.55},
+            "strokeWidth": {"field": "tonnes", "type": "quantitative", "scale": {"range": [1.5, 14]}, "legend": null},
+            "color": {"condition": {"param": "hover_dest", "empty": false, "value": "#5E2E0E"}, "value": "#B9692A"},
+            "opacity": {"condition": {"param": "hover_dest", "empty": false, "value": 1}, "value": 0.8},
             "tooltip": [
               {"field": "country", "title": "Destination"},
               {"field": "t_label", "title": "Worn clothing received"},
@@ -43,25 +52,25 @@
           }
         },
         {
-          "mark": {"type": "circle", "stroke": "#F7F8F5", "strokeWidth": 0.8},
+          "mark": {"type": "circle", "stroke": "#F7F8F5", "strokeWidth": 0.8, "opacity": 1},
           "encoding": {
             "longitude": {"field": "lon", "type": "quantitative"},
             "latitude": {"field": "lat", "type": "quantitative"},
             "size": {
               "field": "tonnes",
               "type": "quantitative",
-              "scale": {"range": [16, 900]},
+              "scale": {"range": [30, 1000]},
               "legend": {
                 "orient": "bottom",
                 "title": "Worn clothing received (tonnes)",
                 "values": [1000, 10000, 50000],
                 "labelExpr": "format(datum.value, ',')",
-                "symbolFillColor": "#C27B2E",
+                "symbolFillColor": "#B9692A",
                 "symbolStrokeColor": "#F7F8F5",
                 "titleLimit": 0
               }
             },
-            "color": {"value": "#94501B"},
+            "color": {"value": "#B9692A"},
             "tooltip": [
               {"field": "country", "title": "Destination"},
               {"field": "t_label", "title": "Worn clothing received"},

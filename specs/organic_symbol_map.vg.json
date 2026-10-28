@@ -94,7 +94,7 @@
       }
     },
     {
-      "data": {"values": [{"lon": -168, "lat": -9, "t": "Samoa: 85% organic"}]},
+      "data": {"values": [{"lon": -168, "lat": -9, "t": "Samoa: 85% of farmland is organic"}]},
       "mark": {"type": "text", "align": "left", "fontSize": 12, "color": "#1E2B26", "fontWeight": 600},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
