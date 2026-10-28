@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Chart 1: Country Overshoot Days 2026, world choropleth map (Equal Earth projection).",
+  "description": "Chart 1: Country Overshoot Days 2026, world choropleth map (Equal Earth projection). Very small countries (Qatar, Luxembourg, Singapore, Kuwait, Bahrain, Malta) appear as labelled dots when their legend group is selected.",
   "width": "container",
   "height": 480,
   "projection": {"type": "equalEarth"},
@@ -10,23 +10,14 @@
       "mark": {"type": "geoshape", "fill": "#EDF1EE", "stroke": "#DCE0DB", "strokeWidth": 0.5}
     },
     {
-      "data": {
-        "url": "data/world-50m.json",
-        "format": {"type": "topojson", "feature": "countries"}
-      },
+      "data": {"url": "data/world-50m.json", "format": {"type": "topojson", "feature": "countries"}},
       "params": [
-        {
-          "name": "band_pick",
-          "select": {"type": "point", "fields": ["band"]},
-          "bind": "legend"
-        },
-        {
-          "name": "hover",
-          "select": {"type": "point", "fields": ["id"], "on": "pointerover", "clear": "pointerout"}
-        }
+        {"name": "band_pick", "select": {"type": "point", "fields": ["band"]}, "bind": "legend"},
+        {"name": "hover", "select": {"type": "point", "fields": ["id"], "on": "pointerover", "clear": "pointerout"}}
       ],
       "transform": [
-        {"calculate": "toNumber(datum.id)", "as": "id"}, {"filter": "datum.id != 10"},
+        {"calculate": "toNumber(datum.id)", "as": "id"},
+        {"filter": "datum.id != 10"},
         {
           "lookup": "id",
           "from": {
@@ -52,22 +43,13 @@
           "title": "Overshoot day falls in",
           "scale": {
             "domain": ["Jan to Feb", "March", "April to May", "June to July", "August to September", "October to December", "Not on the 2026 list"],
-            "range": ["#5E2E0E", "#94501B", "#C27B2E", "#DCA65C", "#EBCB98", "#F5E6CB", "#E2E5E1"]
+            "range": ["#5E2E0E", "#8E4A17", "#B96A24", "#D99140", "#E8B562", "#F2D488", "#E2E5E1"]
           },
           "legend": {"orient": "bottom", "direction": "horizontal", "columns": 4, "symbolType": "square", "symbolSize": 140}
         },
-        "opacity": {
-          "condition": {"param": "band_pick", "value": 1},
-          "value": 0.2
-        },
-        "stroke": {
-          "condition": {"param": "hover", "empty": false, "value": "#1E2B26"},
-          "value": "#F7F8F5"
-        },
-        "strokeWidth": {
-          "condition": {"param": "hover", "empty": false, "value": 1.5},
-          "value": 0.75
-        },
+        "opacity": {"condition": {"param": "band_pick", "value": 1}, "value": 0.2},
+        "strokeWidth": {"condition": {"param": "hover", "empty": false, "value": 1.5}, "value": 0.75},
+        "stroke": {"condition": {"param": "hover", "empty": false, "value": "#1E2B26"}, "value": "#F7F8F5"},
         "tooltip": [
           {"field": "country", "type": "nominal", "title": "Country"},
           {"field": "date_label", "type": "nominal", "title": "Overshoot day"},
@@ -76,25 +58,84 @@
       }
     },
     {
-      "data": {
-        "url": "data/world-50m.json",
-        "format": {"type": "topojson", "feature": "countries"}
-      },
-      "transform": [{"calculate": "toNumber(datum.id)", "as": "id"}, {"filter": "datum.id == 36"}],
-      "mark": {"type": "geoshape", "filled": false, "stroke": "#1E2B26", "strokeWidth": 1.6}
+      "data": {"url": "data/world-50m.json", "format": {"type": "topojson", "feature": "countries"}},
+      "transform": [
+        {"calculate": "toNumber(datum.id)", "as": "id"},
+        {"filter": "datum.id == 36"},
+        {"calculate": "'March'", "as": "band"}
+      ],
+      "mark": {"type": "geoshape", "filled": false, "stroke": "#1E2B26", "strokeWidth": 1.6},
+      "encoding": {"opacity": {"condition": {"param": "band_pick", "value": 1}, "value": 0.2}}
     },
     {
       "data": {
         "values": [
-          {"lon": 110, "lat": -25, "text": "Australia: 16 March"},
-          {"lon": 110, "lat": -31, "text": "10th earliest of 82 countries"}
+          {"country": "Qatar", "lat": 25.35, "lon": 51.18, "rank": 1, "date_label": "4 February", "band": "Jan to Feb"},
+          {"country": "Luxembourg", "lat": 49.82, "lon": 6.13, "rank": 2, "date_label": "17 February", "band": "Jan to Feb"},
+          {"country": "Singapore", "lat": 1.35, "lon": 103.82, "rank": 3, "date_label": "23 February", "band": "Jan to Feb"},
+          {"country": "Kuwait", "lat": 29.31, "lon": 47.48, "rank": 4, "date_label": "3 March", "band": "March"},
+          {"country": "Bahrain", "lat": 25.93, "lon": 50.64, "rank": 8, "date_label": "11 March", "band": "March"},
+          {"country": "Malta", "lat": 35.94, "lon": 14.38, "rank": 25, "date_label": "16 April", "band": "April to May"}
+        ]
+      },
+      "mark": {"type": "circle", "opacity": 1, "stroke": "#1E2B26", "strokeWidth": 0.8},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "color": {"field": "band", "type": "ordinal"},
+        "size": {"condition": {"param": "band_pick", "empty": false, "value": 70}, "value": 0},
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "date_label", "title": "Overshoot day"},
+          {"field": "rank", "type": "quantitative", "title": "Rank (1 = earliest)"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"country": "Qatar", "lat": 25.35, "lon": 51.18, "band": "Jan to Feb"},
+          {"country": "Luxembourg", "lat": 49.82, "lon": 6.13, "band": "Jan to Feb"},
+          {"country": "Singapore", "lat": 1.35, "lon": 103.82, "band": "Jan to Feb"},
+          {"country": "Kuwait", "lat": 29.31, "lon": 47.48, "band": "March"},
+          {"country": "Bahrain", "lat": 25.93, "lon": 50.64, "band": "March"},
+          {"country": "Malta", "lat": 35.94, "lon": 14.38, "band": "April to May"}
+        ]
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "align": "left", "dx": 8, "baseline": "middle", "fontSize": 12, "fontWeight": 600, "stroke": "#F7F8F5", "strokeWidth": 4, "strokeJoin": "round"},
+          "encoding": {
+            "longitude": {"field": "lon", "type": "quantitative"},
+            "latitude": {"field": "lat", "type": "quantitative"},
+            "text": {"field": "country"},
+            "opacity": {"condition": {"param": "band_pick", "empty": false, "value": 1}, "value": 0}
+          }
+        },
+        {
+          "mark": {"type": "text", "align": "left", "dx": 8, "baseline": "middle", "fontSize": 12, "fontWeight": 600, "color": "#1E2B26"},
+          "encoding": {
+            "longitude": {"field": "lon", "type": "quantitative"},
+            "latitude": {"field": "lat", "type": "quantitative"},
+            "text": {"field": "country"},
+            "opacity": {"condition": {"param": "band_pick", "empty": false, "value": 1}, "value": 0}
+          }
+        }
+      ]
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 110, "lat": -25, "text": "Australia: 16 March", "band": "March"},
+          {"lon": 110, "lat": -31, "text": "10th earliest of 82 countries", "band": "March"}
         ]
       },
       "mark": {"type": "text", "align": "right", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "color": "#1E2B26"},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
-        "text": {"field": "text"}
+        "text": {"field": "text"},
+        "opacity": {"condition": {"param": "band_pick", "value": 1}, "value": 0.2}
       }
     }
   ]

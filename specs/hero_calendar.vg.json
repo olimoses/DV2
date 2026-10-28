@@ -8,7 +8,7 @@
     {"calculate": "datetime(2026, 0, datum.day)", "as": "date"},
     {"calculate": "floor((datum.day - 1) / 5)", "as": "col"},
     {"calculate": "(datum.day - 1) % 5", "as": "row"},
-    {"calculate": "datum.day <= 75 ? 'A full year of nature’s budget, used up' : 'Borrowed from future years'", "as": "status"}
+    {"calculate": "datum.day <= 75 ? 'Covered by this year’s resources' : 'Borrowed from future years'", "as": "status"}
   ],
   "mark": {"type": "rect", "cornerRadius": 1.5},
   "encoding": {
@@ -33,7 +33,7 @@
       "type": "nominal",
       "title": null,
       "scale": {
-        "domain": ["A full year of nature’s budget, used up", "Borrowed from future years"],
+        "domain": ["Covered by this year’s resources", "Borrowed from future years"],
         "range": ["#2F6B4F", "#E3B76F"]
       },
       "legend": {
