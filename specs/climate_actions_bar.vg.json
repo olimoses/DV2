@@ -1,0 +1,117 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 4: Bar chart of food actions Australians worried about climate change say they take. Source: PwC Voice of the Consumer Survey 2025, p.11.",
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "data/pwc_climate_actions.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.pwc_group != 'None'"
+    },
+    {
+      "calculate": "datum.action == 'Buy sustainably certified food' ? 'Buying certified food' : datum.pct >= 50 ? 'Habits that also tend to save money' : 'Other actions'",
+      "as": "type"
+    },
+    {
+      "calculate": "datum.pct + '%'",
+      "as": "pct_label"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "action",
+      "type": "nominal",
+      "sort": {
+        "field": "pct",
+        "op": "max",
+        "order": "descending"
+      },
+      "title": null,
+      "axis": {
+        "labelLimit": 0,
+        "labelFontSize": 12,
+        "domain": false,
+        "ticks": false,
+        "labelPadding": 8
+      }
+    },
+    "x": {
+      "field": "pct",
+      "type": "quantitative",
+      "title": null,
+      "axis": null,
+      "scale": {
+        "domain": [
+          0,
+          70
+        ]
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 2,
+        "height": {
+          "band": 0.7
+        }
+      },
+      "encoding": {
+        "color": {
+          "field": "type",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Habits that also tend to save money",
+              "Buying certified food",
+              "Other actions"
+            ],
+            "range": [
+              "#2F6B4F",
+              "#C27B2E",
+              "#C9CFCA"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "title": null,
+            "direction": "vertical",
+            "labelLimit": 0
+          }
+        },
+        "tooltip": [
+          {
+            "field": "action",
+            "title": "Action"
+          },
+          {
+            "field": "pct",
+            "title": "% who do this"
+          },
+          {
+            "field": "pwc_group",
+            "title": "PwC grouping"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 12,
+        "fontWeight": 600,
+        "color": "#1E2B26"
+      },
+      "encoding": {
+        "text": {
+          "field": "pct_label"
+        }
+      }
+    }
+  ]
+}

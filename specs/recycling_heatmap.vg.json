@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 10: Heatmap of the share of each material recycled in each state and territory, 2024-25. Source: DCCEEW, National Waste and Resource Recovery Database 2026.",
+  "width": "container",
+  "height": 330,
+  "data": {"url": "data/recycling_by_state_material_2024_25.csv"},
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "sum", "field": "recycled_t", "as": "mat_rec"},
+        {"op": "sum", "field": "total_t", "as": "mat_tot"}
+      ],
+      "groupby": ["material"]
+    },
+    {"calculate": "datum.mat_rec / datum.mat_tot * 100", "as": "mat_rate"},
+    {"calculate": "format(datum.recycling_rate_pct, '.0f') + '%'", "as": "cell_label"},
+    {"calculate": "format(datum.recycling_rate_pct, '.1f') + '%'", "as": "tip_rate"},
+    {"calculate": "format(datum.total_t, ',.0f') + ' tonnes'", "as": "tip_total"}
+  ],
+  "encoding": {
+    "x": {
+      "field": "abbr",
+      "type": "nominal",
+      "sort": ["SA", "NSW", "WA", "ACT", "Vic", "Tas", "Qld", "NT"],
+      "title": null,
+      "axis": {"orient": "top", "labelAngle": 0, "domain": false, "ticks": false, "labelFontWeight": 600, "labelFontSize": 12}
+    },
+    "y": {
+      "field": "material",
+      "type": "nominal",
+      "sort": {"field": "mat_rate", "op": "max", "order": "descending"},
+      "title": null,
+      "axis": {
+        "domain": false,
+        "ticks": false,
+        "labelLimit": 0,
+        "labelFontSize": 12,
+        "labelPadding": 8,
+        "labelColor": {"condition": {"test": "datum.value == 'Textiles, leather & rubber'", "value": "#C27B2E"}, "value": "#1E2B26"},
+        "labelFontWeight": {"condition": {"test": "datum.value == 'Textiles, leather & rubber'", "value": 700}, "value": 400}
+      }
+    }
+  },
+  "layer": [
+    {
+      "params": [{"name": "hover_cell", "select": {"type": "point", "on": "pointerover", "clear": "pointerout"}}],
+      "mark": {"type": "rect", "stroke": "#F7F8F5", "strokeWidth": 2, "cornerRadius": 2},
+      "encoding": {
+        "color": {
+          "field": "recycling_rate_pct",
+          "type": "quantitative",
+          "title": "Share recycled",
+          "scale": {"domain": [0, 100], "range": ["#F1EDE3", "#9CC2A8", "#235C40"]},
+          "legend": {"orient": "bottom", "direction": "horizontal", "gradientLength": 220, "labelExpr": "datum.value + '%'", "titleLimit": 0}
+        },
+        "stroke": {"condition": {"param": "hover_cell", "empty": false, "value": "#1E2B26"}, "value": "#F7F8F5"},
+        "tooltip": [
+          {"field": "state", "title": "State or territory"},
+          {"field": "material", "title": "Material"},
+          {"field": "tip_rate", "title": "Share recycled"},
+          {"field": "tip_total", "title": "Total waste of this type"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "fontSize": 12, "fontWeight": 600},
+      "encoding": {
+        "text": {"field": "cell_label"},
+        "color": {"condition": {"test": "datum.recycling_rate_pct >= 60", "value": "#FFFFFF"}, "value": "#1E2B26"}
+      }
+    }
+  ]
+}

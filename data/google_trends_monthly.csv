@@ -1,0 +1,358 @@
+month,term,interest
+2016-11-01,Depop,1
+2016-12-01,Depop,1
+2017-01-01,Depop,1
+2017-02-01,Depop,1
+2017-03-01,Depop,0
+2017-04-01,Depop,1
+2017-05-01,Depop,0
+2017-06-01,Depop,0
+2017-07-01,Depop,0
+2017-08-01,Depop,0
+2017-09-01,Depop,0
+2017-10-01,Depop,0
+2017-11-01,Depop,0
+2017-12-01,Depop,0
+2018-01-01,Depop,0
+2018-02-01,Depop,0
+2018-03-01,Depop,2
+2018-04-01,Depop,3
+2018-05-01,Depop,3
+2018-06-01,Depop,2
+2018-07-01,Depop,3
+2018-08-01,Depop,3
+2018-09-01,Depop,3
+2018-10-01,Depop,3
+2018-11-01,Depop,3
+2018-12-01,Depop,3
+2019-01-01,Depop,3
+2019-02-01,Depop,4
+2019-03-01,Depop,4
+2019-04-01,Depop,4
+2019-05-01,Depop,4
+2019-06-01,Depop,4
+2019-07-01,Depop,4
+2019-08-01,Depop,4
+2019-09-01,Depop,5
+2019-10-01,Depop,4
+2019-11-01,Depop,5
+2019-12-01,Depop,4
+2020-01-01,Depop,5
+2020-02-01,Depop,6
+2020-03-01,Depop,5
+2020-04-01,Depop,8
+2020-05-01,Depop,10
+2020-06-01,Depop,8
+2020-07-01,Depop,10
+2020-08-01,Depop,10
+2020-09-01,Depop,10
+2020-10-01,Depop,8
+2020-11-01,Depop,7
+2020-12-01,Depop,6
+2021-01-01,Depop,8
+2021-02-01,Depop,8
+2021-03-01,Depop,8
+2021-04-01,Depop,7
+2021-05-01,Depop,8
+2021-06-01,Depop,9
+2021-07-01,Depop,9
+2021-08-01,Depop,9
+2021-09-01,Depop,10
+2021-10-01,Depop,9
+2021-11-01,Depop,8
+2021-12-01,Depop,7
+2022-01-01,Depop,12
+2022-02-01,Depop,13
+2022-03-01,Depop,13
+2022-04-01,Depop,13
+2022-05-01,Depop,12
+2022-06-01,Depop,11
+2022-07-01,Depop,12
+2022-08-01,Depop,12
+2022-09-01,Depop,11
+2022-10-01,Depop,12
+2022-11-01,Depop,11
+2022-12-01,Depop,10
+2023-01-01,Depop,12
+2023-02-01,Depop,13
+2023-03-01,Depop,14
+2023-04-01,Depop,18
+2023-05-01,Depop,15
+2023-06-01,Depop,14
+2023-07-01,Depop,14
+2023-08-01,Depop,14
+2023-09-01,Depop,14
+2023-10-01,Depop,14
+2023-11-01,Depop,14
+2023-12-01,Depop,13
+2024-01-01,Depop,15
+2024-02-01,Depop,17
+2024-03-01,Depop,19
+2024-04-01,Depop,19
+2024-05-01,Depop,19
+2024-06-01,Depop,19
+2024-07-01,Depop,19
+2024-08-01,Depop,19
+2024-09-01,Depop,20
+2024-10-01,Depop,19
+2024-11-01,Depop,20
+2024-12-01,Depop,18
+2025-01-01,Depop,25
+2025-02-01,Depop,25
+2025-03-01,Depop,28
+2025-04-01,Depop,27
+2025-05-01,Depop,32
+2025-06-01,Depop,32
+2025-07-01,Depop,30
+2025-08-01,Depop,32
+2025-09-01,Depop,30
+2025-10-01,Depop,35
+2025-11-01,Depop,38
+2025-12-01,Depop,28
+2026-01-01,Depop,39
+2026-02-01,Depop,37
+2026-03-01,Depop,40
+2026-04-01,Depop,44
+2026-05-01,Depop,47
+2026-06-01,Depop,47
+2026-07-01,Depop,50
+2026-08-01,Depop,43
+2026-09-01,Depop,40
+2016-11-01,Charity shop,20
+2016-12-01,Charity shop,22
+2017-01-01,Charity shop,25
+2017-02-01,Charity shop,24
+2017-03-01,Charity shop,24
+2017-04-01,Charity shop,26
+2017-05-01,Charity shop,27
+2017-06-01,Charity shop,31
+2017-07-01,Charity shop,32
+2017-08-01,Charity shop,26
+2017-09-01,Charity shop,28
+2017-10-01,Charity shop,26
+2017-11-01,Charity shop,25
+2017-12-01,Charity shop,26
+2018-01-01,Charity shop,30
+2018-02-01,Charity shop,26
+2018-03-01,Charity shop,19
+2018-04-01,Charity shop,22
+2018-05-01,Charity shop,21
+2018-06-01,Charity shop,21
+2018-07-01,Charity shop,23
+2018-08-01,Charity shop,21
+2018-09-01,Charity shop,21
+2018-10-01,Charity shop,19
+2018-11-01,Charity shop,19
+2018-12-01,Charity shop,21
+2019-01-01,Charity shop,23
+2019-02-01,Charity shop,21
+2019-03-01,Charity shop,20
+2019-04-01,Charity shop,22
+2019-05-01,Charity shop,20
+2019-06-01,Charity shop,19
+2019-07-01,Charity shop,21
+2019-08-01,Charity shop,20
+2019-09-01,Charity shop,20
+2019-10-01,Charity shop,21
+2019-11-01,Charity shop,20
+2019-12-01,Charity shop,21
+2020-01-01,Charity shop,25
+2020-02-01,Charity shop,20
+2020-03-01,Charity shop,14
+2020-04-01,Charity shop,10
+2020-05-01,Charity shop,18
+2020-06-01,Charity shop,27
+2020-07-01,Charity shop,26
+2020-08-01,Charity shop,25
+2020-09-01,Charity shop,30
+2020-10-01,Charity shop,33
+2020-11-01,Charity shop,33
+2020-12-01,Charity shop,22
+2021-01-01,Charity shop,35
+2021-02-01,Charity shop,33
+2021-03-01,Charity shop,24
+2021-04-01,Charity shop,36
+2021-05-01,Charity shop,21
+2021-06-01,Charity shop,33
+2021-07-01,Charity shop,33
+2021-08-01,Charity shop,21
+2021-09-01,Charity shop,24
+2021-10-01,Charity shop,30
+2021-11-01,Charity shop,35
+2021-12-01,Charity shop,33
+2022-01-01,Charity shop,38
+2022-02-01,Charity shop,35
+2022-03-01,Charity shop,37
+2022-04-01,Charity shop,43
+2022-05-01,Charity shop,18
+2022-06-01,Charity shop,43
+2022-07-01,Charity shop,49
+2022-08-01,Charity shop,42
+2022-09-01,Charity shop,46
+2022-10-01,Charity shop,42
+2022-11-01,Charity shop,37
+2022-12-01,Charity shop,41
+2023-01-01,Charity shop,49
+2023-02-01,Charity shop,41
+2023-03-01,Charity shop,46
+2023-04-01,Charity shop,58
+2023-05-01,Charity shop,52
+2023-06-01,Charity shop,55
+2023-07-01,Charity shop,55
+2023-08-01,Charity shop,48
+2023-09-01,Charity shop,54
+2023-10-01,Charity shop,48
+2023-11-01,Charity shop,47
+2023-12-01,Charity shop,46
+2024-01-01,Charity shop,51
+2024-02-01,Charity shop,39
+2024-03-01,Charity shop,44
+2024-04-01,Charity shop,46
+2024-05-01,Charity shop,39
+2024-06-01,Charity shop,38
+2024-07-01,Charity shop,40
+2024-08-01,Charity shop,36
+2024-09-01,Charity shop,39
+2024-10-01,Charity shop,40
+2024-11-01,Charity shop,36
+2024-12-01,Charity shop,38
+2025-01-01,Charity shop,47
+2025-02-01,Charity shop,37
+2025-03-01,Charity shop,35
+2025-04-01,Charity shop,39
+2025-05-01,Charity shop,37
+2025-06-01,Charity shop,40
+2025-07-01,Charity shop,40
+2025-08-01,Charity shop,36
+2025-09-01,Charity shop,37
+2025-10-01,Charity shop,39
+2025-11-01,Charity shop,35
+2025-12-01,Charity shop,37
+2026-01-01,Charity shop,50
+2026-02-01,Charity shop,39
+2026-03-01,Charity shop,34
+2026-04-01,Charity shop,45
+2026-05-01,Charity shop,46
+2026-06-01,Charity shop,42
+2026-07-01,Charity shop,42
+2026-08-01,Charity shop,43
+2026-09-01,Charity shop,42
+2016-11-01,Used good,61
+2016-12-01,Used good,78
+2017-01-01,Used good,100
+2017-02-01,Used good,77
+2017-03-01,Used good,63
+2017-04-01,Used good,66
+2017-05-01,Used good,78
+2017-06-01,Used good,90
+2017-07-01,Used good,94
+2017-08-01,Used good,82
+2017-09-01,Used good,84
+2017-10-01,Used good,76
+2017-11-01,Used good,51
+2017-12-01,Used good,43
+2018-01-01,Used good,47
+2018-02-01,Used good,63
+2018-03-01,Used good,69
+2018-04-01,Used good,63
+2018-05-01,Used good,75
+2018-06-01,Used good,60
+2018-07-01,Used good,49
+2018-08-01,Used good,40
+2018-09-01,Used good,29
+2018-10-01,Used good,26
+2018-11-01,Used good,37
+2018-12-01,Used good,26
+2019-01-01,Used good,40
+2019-02-01,Used good,48
+2019-03-01,Used good,41
+2019-04-01,Used good,33
+2019-05-01,Used good,29
+2019-06-01,Used good,38
+2019-07-01,Used good,71
+2019-08-01,Used good,63
+2019-09-01,Used good,67
+2019-10-01,Used good,69
+2019-11-01,Used good,68
+2019-12-01,Used good,64
+2020-01-01,Used good,67
+2020-02-01,Used good,53
+2020-03-01,Used good,31
+2020-04-01,Used good,28
+2020-05-01,Used good,39
+2020-06-01,Used good,42
+2020-07-01,Used good,38
+2020-08-01,Used good,29
+2020-09-01,Used good,31
+2020-10-01,Used good,30
+2020-11-01,Used good,27
+2020-12-01,Used good,29
+2021-01-01,Used good,36
+2021-02-01,Used good,36
+2021-03-01,Used good,39
+2021-04-01,Used good,46
+2021-05-01,Used good,47
+2021-06-01,Used good,34
+2021-07-01,Used good,39
+2021-08-01,Used good,26
+2021-09-01,Used good,38
+2021-10-01,Used good,29
+2021-11-01,Used good,27
+2021-12-01,Used good,24
+2022-01-01,Used good,29
+2022-02-01,Used good,29
+2022-03-01,Used good,25
+2022-04-01,Used good,26
+2022-05-01,Used good,24
+2022-06-01,Used good,31
+2022-07-01,Used good,46
+2022-08-01,Used good,46
+2022-09-01,Used good,49
+2022-10-01,Used good,48
+2022-11-01,Used good,40
+2022-12-01,Used good,29
+2023-01-01,Used good,38
+2023-02-01,Used good,40
+2023-03-01,Used good,57
+2023-04-01,Used good,56
+2023-05-01,Used good,77
+2023-06-01,Used good,57
+2023-07-01,Used good,59
+2023-08-01,Used good,58
+2023-09-01,Used good,64
+2023-10-01,Used good,63
+2023-11-01,Used good,67
+2023-12-01,Used good,65
+2024-01-01,Used good,59
+2024-02-01,Used good,52
+2024-03-01,Used good,53
+2024-04-01,Used good,53
+2024-05-01,Used good,54
+2024-06-01,Used good,50
+2024-07-01,Used good,63
+2024-08-01,Used good,64
+2024-09-01,Used good,71
+2024-10-01,Used good,68
+2024-11-01,Used good,59
+2024-12-01,Used good,57
+2025-01-01,Used good,70
+2025-02-01,Used good,57
+2025-03-01,Used good,54
+2025-04-01,Used good,55
+2025-05-01,Used good,55
+2025-06-01,Used good,54
+2025-07-01,Used good,51
+2025-08-01,Used good,49
+2025-09-01,Used good,49
+2025-10-01,Used good,55
+2025-11-01,Used good,62
+2025-12-01,Used good,61
+2026-01-01,Used good,69
+2026-02-01,Used good,69
+2026-03-01,Used good,72
+2026-04-01,Used good,72
+2026-05-01,Used good,73
+2026-06-01,Used good,66
+2026-07-01,Used good,64
+2026-08-01,Used good,63
+2026-09-01,Used good,60

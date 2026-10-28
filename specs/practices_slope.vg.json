@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 3: Slope chart comparing which sustainable practice shoppers in other countries and Australian shoppers rate as most important when buying food. Hover anywhere near a line to identify it. Source: PwC Voice of the Consumer Survey 2025, p.12.",
+  "width": "container",
+  "height": 380,
+  "data": {"url": "data/pwc_sustainable_practices_chart.csv"},
+  "transform": [
+    {"fold": ["global_pct", "australia_pct"], "as": ["who", "pct"]},
+    {"calculate": "datum.who == 'global_pct' ? 0 : 1", "as": "xpos"}
+  ],
+  "encoding": {
+    "x": {
+      "field": "xpos",
+      "type": "quantitative",
+      "title": null,
+      "scale": {"domain": [-0.12, 1.75]},
+      "axis": {
+        "orient": "top", "values": [0, 1], "grid": false, "domain": false, "ticks": false,
+        "labelPadding": 10, "labelFontSize": 12, "labelFontWeight": 600, "labelColor": "#1E2B26",
+        "labelExpr": "datum.value == 0 ? 'Other countries' : 'Australia'"
+      }
+    },
+    "y": {
+      "field": "pct",
+      "type": "quantitative",
+      "title": "% who rate it most important",
+      "scale": {"domain": [0, 26]},
+      "axis": {"grid": false, "tickCount": 6, "labelExpr": "datum.value + '%'"}
+    },
+    "detail": {"field": "short"}
+  },
+  "layer": [
+    {
+      "transform": [{"filter": "datum.highlight == 0"}],
+      "mark": {"type": "line", "point": {"filled": true, "size": 40}},
+      "encoding": {
+        "color": {"condition": {"param": "hover_line", "empty": false, "value": "#4A5650"}, "value": "#C9CFCA"},
+        "strokeWidth": {"condition": {"param": "hover_line", "empty": false, "value": 3.5}, "value": 2}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.highlight == 1"}],
+      "mark": {"type": "line", "point": {"filled": true, "size": 55}},
+      "encoding": {
+        "color": {
+          "field": "direction",
+          "type": "nominal",
+          "scale": {"domain": ["Higher in Australia", "Lower in Australia"], "range": ["#C27B2E", "#2F6B4F"]},
+          "legend": {"orient": "bottom", "title": null, "symbolType": "stroke", "symbolStrokeWidth": 3}
+        },
+        "strokeWidth": {"condition": {"param": "hover_line", "empty": false, "value": 4}, "value": 2.5}
+      }
+    },
+    {
+      "transform": [
+        {"filter": "datum.who == 'australia_pct'"},
+        {"filter": {"or": [{"param": "hover_line", "empty": false}, "datum.highlight == 1"]}}
+      ],
+      "mark": {"type": "text", "align": "left", "dx": 10, "fontSize": 12, "fontWeight": 600},
+      "encoding": {
+        "text": {"field": "short"},
+        "color": {"value": "#1E2B26"}
+      }
+    },
+    {
+      "params": [
+        {
+          "name": "hover_line",
+          "select": {"type": "point", "fields": ["short"], "on": "pointerover", "clear": "pointerout", "nearest": true}
+        }
+      ],
+      "mark": {"type": "point", "opacity": 0, "size": 10},
+      "encoding": {
+        "tooltip": [
+          {"field": "practice", "title": "Practice"},
+          {"field": "australia_pct", "title": "Australia (%)"},
+          {"field": "global_pct", "title": "Other countries (%)"}
+        ]
+      }
+    }
+  ]
+}

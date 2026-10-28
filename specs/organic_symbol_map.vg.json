@@ -1,0 +1,86 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 6: Proportional symbol map of certified organic farmland by country, 2023 (Equal Earth projection). Circle area = organic hectares; colour = organic share of the country's farmland. Source: Our World in Data, based on FAO (2025).",
+  "width": "container",
+  "height": 480,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#EDF1EE", "stroke": "#DCE0DB", "strokeWidth": 0.5}
+    },
+    {
+      "data": {"url": "data/world-110m.json", "format": {"type": "topojson", "feature": "countries"}},
+      "transform": [{"filter": "datum.id != 10"}],
+      "mark": {"type": "geoshape", "fill": "#E2E5E1", "stroke": "#F7F8F5", "strokeWidth": 0.6}
+    },
+    {
+      "data": {"url": "data/organic_area_2023.csv"},
+      "transform": [ 
+                {"filter": "datum.organic_ha >= 10000"},
+        {
+          "calculate": "datum.organic_share_pct < 1 ? 'Under 1%' : datum.organic_share_pct < 5 ? '1% to 5%' : datum.organic_share_pct < 15 ? '5% to 15%' : '15% or more'",
+          "as": "share_band"
+        },
+        {"calculate": "format(datum.organic_ha, ',.0f') + ' ha'", "as": "ha_label"},
+        {"calculate": "format(datum.organic_share_pct, '.1f') + '%'", "as": "share_label"}
+      ],
+      "params": [
+        {"name": "share_pick", "select": {"type": "point", "fields": ["share_band"]}, "bind": "legend"},
+        {"name": "hover_c", "select": {"type": "point", "fields": ["iso3"], "on": "pointerover", "clear": "pointerout"}}
+      ],
+      "mark": {"type": "circle", "stroke": "#F7F8F5", "strokeWidth": 0.8},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "size": {
+          "field": "organic_ha",
+          "type": "quantitative",
+          "title": "Organic farmland (hectares)",
+          "scale": {"type": "linear", "zero": true, "range": [18, 3600]},
+          "legend": {
+            "orient": "bottom",
+            "values": [1000000, 10000000, 50000000],
+            "labelExpr": "format(datum.value / 1000000, ',.0f') + ' million ha'",
+            "symbolFillColor": "#9AA39E",
+            "symbolStrokeColor": "#F7F8F5",
+            "titleLimit": 0
+          }
+        },
+        "color": {
+          "field": "share_band",
+          "type": "ordinal",
+          "title": "Organic share of its farmland",
+          "scale": {
+            "domain": ["Under 1%", "1% to 5%", "5% to 15%", "15% or more"],
+            "range": ["#B9D3C2", "#7FAE91", "#3F7F5C", "#1B4D35"]
+          },
+          "legend": {"orient": "bottom", "symbolType": "circle", "symbolSize": 140, "titleLimit": 0}
+        },
+        "opacity": {"condition": {"param": "share_pick", "value": 0.9}, "value": 0.12},
+        "strokeWidth": {"condition": {"param": "hover_c", "empty": false, "value": 2}, "value": 0.8},
+        "order": {"field": "organic_ha", "sort": "descending"},
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "ha_label", "title": "Organic farmland"},
+          {"field": "share_label", "title": "Share of its farmland"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 107, "lat": -16, "t": "Australia: 53 million ha,"},
+          {"lon": 107, "lat": -22, "t": "more than half the world’s total,"},
+          {"lon": 107, "lat": -28, "t": "mostly outback cattle grazing land"}
+        ]
+      },
+      "mark": {"type": "text", "align": "right", "fontSize": 12, "fontWeight": 600, "color": "#1E2B26"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "t"}
+      }
+    }
+  ]
+}

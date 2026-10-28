@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 1: Country Overshoot Days 2026, world choropleth map (Equal Earth projection).",
+  "width": "container",
+  "height": 480,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#EDF1EE", "stroke": "#DCE0DB", "strokeWidth": 0.5}
+    },
+    {
+      "data": {
+        "url": "data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "params": [
+        {
+          "name": "band_pick",
+          "select": {"type": "point", "fields": ["band"]},
+          "bind": "legend"
+        },
+        {
+          "name": "hover",
+          "select": {"type": "point", "fields": ["id"], "on": "pointerover", "clear": "pointerout"}
+        }
+      ],
+      "transform": [
+        {"filter": "datum.id != 10"},
+        {
+          "lookup": "id",
+          "from": {
+            "data": {"url": "data/overshoot_days_2026.csv"},
+            "key": "id",
+            "fields": ["country", "date", "day_of_year", "rank"]
+          }
+        },
+        {
+          "calculate": "datum.day_of_year == null ? 'Not on the 2026 list' : datum.day_of_year <= 59 ? 'Jan to Feb' : datum.day_of_year <= 90 ? 'March' : datum.day_of_year <= 151 ? 'April to May' : datum.day_of_year <= 212 ? 'June to July' : datum.day_of_year <= 273 ? 'August to September' : 'October to December'",
+          "as": "band"
+        },
+        {
+          "calculate": "datum.date == null ? 'Not on the 2026 list' : timeFormat(toDate(datum.date + 'T00:00:00'), '%-d %B')",
+          "as": "date_label"
+        }
+      ],
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "field": "band",
+          "type": "ordinal",
+          "title": "Overshoot day falls in",
+          "scale": {
+            "domain": ["Jan to Feb", "March", "April to May", "June to July", "August to September", "October to December", "Not on the 2026 list"],
+            "range": ["#5E2E0E", "#94501B", "#C27B2E", "#DCA65C", "#EBCB98", "#F5E6CB", "#E2E5E1"]
+          },
+          "legend": {"orient": "bottom", "direction": "horizontal", "columns": 4, "symbolType": "square", "symbolSize": 140}
+        },
+        "opacity": {
+          "condition": {"param": "band_pick", "value": 1},
+          "value": 0.2
+        },
+        "stroke": {
+          "condition": {"param": "hover", "empty": false, "value": "#1E2B26"},
+          "value": "#F7F8F5"
+        },
+        "strokeWidth": {
+          "condition": {"param": "hover", "empty": false, "value": 1.5},
+          "value": 0.75
+        },
+        "tooltip": [
+          {"field": "country", "type": "nominal", "title": "Country"},
+          {"field": "date_label", "type": "nominal", "title": "Overshoot day"},
+          {"field": "rank", "type": "quantitative", "title": "Rank (1 = earliest)"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "transform": [{"filter": "datum.id == 36"}],
+      "mark": {"type": "geoshape", "filled": false, "stroke": "#1E2B26", "strokeWidth": 1.6}
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 110, "lat": -25, "text": "Australia: 16 March"},
+          {"lon": 110, "lat": -31, "text": "10th earliest of 82 countries"}
+        ]
+      },
+      "mark": {"type": "text", "align": "right", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "color": "#1E2B26"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "text"}
+      }
+    }
+  ]
+}

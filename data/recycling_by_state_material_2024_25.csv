@@ -1,0 +1,57 @@
+abbr,state,material,recycled_t,total_t,recycling_rate_pct
+ACT,Australian Capital Territory,Building & demolition,406123.0,501991.0,80.9
+ACT,Australian Capital Territory,Glass,9587.0,31419.0,30.5
+ACT,Australian Capital Territory,Metals,58437.0,79243.0,73.7
+ACT,Australian Capital Territory,Organics,149231.0,338198.0,44.1
+ACT,Australian Capital Territory,Paper & cardboard,50568.0,77268.0,65.4
+ACT,Australian Capital Territory,Plastics,2731.0,33826.0,8.1
+ACT,Australian Capital Territory,"Textiles, leather & rubber",262.0,29106.0,0.9
+NSW,New South Wales,Building & demolition,9463670.0,10587776.0,89.4
+NSW,New South Wales,Glass,289881.0,560507.0,51.7
+NSW,New South Wales,Metals,2092064.0,2234921.0,93.6
+NSW,New South Wales,Organics,2101162.0,4189621.0,50.2
+NSW,New South Wales,Paper & cardboard,905020.0,1724573.0,52.5
+NSW,New South Wales,Plastics,111140.0,891575.0,12.5
+NSW,New South Wales,"Textiles, leather & rubber",3003.0,160836.0,1.9
+NT,Northern Territory,Building & demolition,7517.0,100827.0,7.5
+NT,Northern Territory,Glass,4772.0,12069.0,39.5
+NT,Northern Territory,Metals,4756.0,12610.0,37.7
+NT,Northern Territory,Organics,31486.0,108413.0,29.0
+NT,Northern Territory,Paper & cardboard,1361.0,25995.0,5.2
+NT,Northern Territory,Plastics,1064.0,30103.0,3.5
+NT,Northern Territory,"Textiles, leather & rubber",0.0,7891.0,0.0
+Qld,Queensland,Building & demolition,2294437.0,2974068.0,77.1
+Qld,Queensland,Glass,141151.0,304869.0,46.3
+Qld,Queensland,Metals,1088165.0,1235553.0,88.1
+Qld,Queensland,Organics,2078890.0,3862009.0,53.8
+Qld,Queensland,Paper & cardboard,624395.0,1169380.0,53.4
+Qld,Queensland,Plastics,51028.0,715826.0,7.1
+Qld,Queensland,"Textiles, leather & rubber",6176.0,185440.0,3.3
+SA,South Australia,Building & demolition,1973256.0,2206861.0,89.4
+SA,South Australia,Glass,80198.0,116258.0,69.0
+SA,South Australia,Metals,412843.0,440647.0,93.7
+SA,South Australia,Organics,1147290.0,1667411.0,68.8
+SA,South Australia,Paper & cardboard,151779.0,337473.0,45.0
+SA,South Australia,Plastics,25760.0,175242.0,14.7
+SA,South Australia,"Textiles, leather & rubber",9470.0,41152.0,23.0
+Tas,Tasmania,Building & demolition,152615.0,222227.0,68.7
+Tas,Tasmania,Glass,9350.0,28894.0,32.4
+Tas,Tasmania,Metals,67310.0,84668.0,79.5
+Tas,Tasmania,Organics,246795.0,440071.0,56.1
+Tas,Tasmania,Paper & cardboard,26532.0,91577.0,29.0
+Tas,Tasmania,Plastics,4481.0,83946.0,5.3
+Tas,Tasmania,"Textiles, leather & rubber",702.0,22139.0,3.2
+Vic,Victoria,Building & demolition,5877477.0,6974164.0,84.3
+Vic,Victoria,Glass,174065.0,261211.0,66.6
+Vic,Victoria,Metals,789453.0,936985.0,84.3
+Vic,Victoria,Organics,1637674.0,3377518.0,48.5
+Vic,Victoria,Paper & cardboard,416727.0,963024.0,43.3
+Vic,Victoria,Plastics,154968.0,755193.0,20.5
+Vic,Victoria,"Textiles, leather & rubber",2196.0,259202.0,0.8
+WA,Western Australia,Building & demolition,3047509.0,3814271.0,79.9
+WA,Western Australia,Glass,82539.0,139275.0,59.3
+WA,Western Australia,Metals,745607.0,852354.0,87.5
+WA,Western Australia,Organics,641799.0,1511198.0,42.5
+WA,Western Australia,Paper & cardboard,235993.0,524262.0,45.0
+WA,Western Australia,Plastics,29618.0,355860.0,8.3
+WA,Western Australia,"Textiles, leather & rubber",8765.0,133916.0,6.5

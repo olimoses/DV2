@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 5: Mosaic (Marimekko) chart of the ACCC 2022 greenwashing sweep. Column width = number of businesses checked in each sector; height split = share that raised concerns. Source: ACCC, Greenwashing by businesses in Australia (March 2023).",
+  "width": "container",
+  "height": 360,
+  "data": {"url": "data/accc_greenwashing_sweep.csv"},
+  "transform": [
+    {"calculate": "datum.raised_concerns / datum.businesses_swept", "as": "share_raised"},
+    {"calculate": "round(datum.share_raised * 100) + '%'", "as": "pct_label"},
+    {"calculate": "datum.raised_concerns", "as": "raised_concerns_n"},
+    {
+      "window": [{"op": "sum", "field": "businesses_swept", "as": "x1"}],
+      "sort": [{"field": "share_raised", "order": "descending"}],
+      "frame": [null, 0]
+    },
+    {"calculate": "datum.x1 - datum.businesses_swept", "as": "x0"},
+    {"calculate": "(datum.x0 + datum.x1) / 2", "as": "xmid"},
+    {
+      "calculate": "{'Takeaway packaging':'Takeaway\\npackaging','Cosmetics and personal care':'Cosmetics &\\npersonal care','Food and beverages':'Food &\\ndrinks','Household and cleaning products':'Household &\\ncleaning','Textiles, garments and shoes':'Clothes &\\nshoes','Electronics and home appliances':'Electronics &\\nappliances','Vehicles':'Vehicles','Energy':'Energy'}[datum.sector] + '\\n' + datum.businesses_swept + ' checked'",
+      "as": "label"
+    },
+    {"fold": ["raised_concerns", "no_concerns"], "as": ["status_key", "count"]},
+    {"calculate": "datum.status_key == 'raised_concerns' ? 'Claims raised concerns' : 'No concerns raised'", "as": "status"},
+    {"calculate": "datum.status_key == 'raised_concerns' ? 0 : datum.share_raised", "as": "y0"},
+    {"calculate": "datum.status_key == 'raised_concerns' ? datum.share_raised : 1", "as": "y1"}
+  ],
+  "layer": [
+    {
+      "params": [
+        {"name": "hover_sector", "select": {"type": "point", "fields": ["sector"], "on": "pointerover", "clear": "pointerout"}}
+      ],
+      "mark": {"type": "rect", "stroke": "#F7F8F5", "strokeWidth": 2},
+      "encoding": {
+        "x": {"field": "x0", "type": "quantitative", "scale": {"domain": [0, 247], "nice": false, "zero": true}, "axis": null},
+        "x2": {"field": "x1"},
+        "y": {"field": "y0", "type": "quantitative", "scale": {"domain": [-0.2, 1.0], "nice": false}, "axis": null},
+        "y2": {"field": "y1"},
+        "color": {
+          "field": "status",
+          "type": "nominal",
+          "scale": {"domain": ["Claims raised concerns", "No concerns raised"], "range": ["#C27B2E", "#D9E2DC"]},
+          "legend": {"orient": "top", "title": null, "symbolType": "square", "symbolSize": 140, "labelFontSize": 12, "columnPadding": 24}
+        },
+        "opacity": {"condition": {"param": "hover_sector", "value": 1}, "value": 0.45},
+        "tooltip": [
+          {"field": "sector", "title": "Sector"},
+          {"field": "businesses_swept", "title": "Businesses checked"},
+          {"field": "raised_concerns_n", "title": "Raised concerns"},
+          {"field": "pct_label", "title": "Share raising concerns"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.status_key == 'raised_concerns'"}],
+      "mark": {"type": "text", "baseline": "bottom", "dy": -10, "fontSize": 18, "fontWeight": 700, "color": "#FFFFFF"},
+      "encoding": {"x": {"field": "xmid", "type": "quantitative"}, "y": {"datum": 0}, "text": {"field": "pct_label"}}
+    },
+    {
+      "transform": [{"filter": "datum.status_key == 'raised_concerns'"}],
+      "mark": {"type": "text", "baseline": "top", "dy": 8, "fontSize": 11, "lineHeight": 14, "lineBreak": "\n", "color": "#4A5650"},
+      "encoding": {"x": {"field": "xmid", "type": "quantitative"}, "y": {"datum": 0}, "text": {"field": "label"}}
+    },
+    {
+      "data": {"values": [{"y": 0.57}]},
+      "mark": {"type": "rule", "strokeDash": [4, 3], "color": "#1E2B26", "strokeWidth": 1.2},
+      "encoding": {"y": {"field": "y", "type": "quantitative"}}
+    },
+    {
+      "data": {"values": [{"y": 0.57, "x": 247, "t": "All 247 businesses: 57%"}]},
+      "mark": {"type": "text", "align": "right", "baseline": "bottom", "dy": -4, "dx": -4, "fontSize": 12, "fontWeight": 700, "color": "#1E2B26"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "quantitative"},
+        "text": {"field": "t"}
+      }
+    }
+  ],
+  "resolve": {"scale": {"x": "shared", "y": "shared"}}
+}

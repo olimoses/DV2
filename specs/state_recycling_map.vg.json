@@ -1,0 +1,84 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 9: Choropleth map of the share of waste recycled in each Australian state and territory, 2024-25. Albers equal-area conic projection with Australian standard parallels (-18°, -36°). Source: DCCEEW, National Waste and Resource Recovery Database 2026.",
+  "width": "container",
+  "height": 400,
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-133, 0, 0]},
+  "layer": [
+    {
+      "data": {"url": "data/australia_states.json", "format": {"type": "topojson", "feature": "states"}},
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {"url": "data/state_recycling_2024_25.csv"},
+            "key": "state",
+            "fields": ["abbr", "recycling_rate_pct", "recycled_t", "total_t", "rate_2014_15"]
+          }
+        },
+        {
+          "calculate": "datum.recycling_rate_pct < 50 ? 'Under 50%' : datum.recycling_rate_pct < 60 ? '50% to 60%' : datum.recycling_rate_pct < 70 ? '60% to 70%' : '70% or more'",
+          "as": "band"
+        },
+        {"calculate": "format(datum.recycling_rate_pct, '.1f') + '%'", "as": "rate_label"},
+        {"calculate": "format(datum.rate_2014_15, '.1f') + '%'", "as": "old_label"},
+        {"calculate": "format(datum.total_t / 1000000, '.1f') + ' million tonnes'", "as": "total_label"}
+      ],
+      "params": [
+        {"name": "hover_state", "select": {"type": "point", "fields": ["abbr"], "on": "pointerover", "clear": "pointerout"}}
+      ],
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "field": "band",
+          "type": "ordinal",
+          "title": "Share of waste recycled, 2024–25",
+          "scale": {
+            "domain": ["Under 50%", "50% to 60%", "60% to 70%", "70% or more"],
+            "range": ["#D6E5DA", "#9CC2A8", "#55916C", "#235C40"]
+          },
+          "legend": {"orient": "bottom", "symbolType": "square", "symbolSize": 140, "titleLimit": 0, "direction": "horizontal"}
+        },
+        "stroke": {"condition": {"param": "hover_state", "empty": false, "value": "#1E2B26"}, "value": "#F7F8F5"},
+        "strokeWidth": {"condition": {"param": "hover_state", "empty": false, "value": 2}, "value": 1},
+        "tooltip": [
+          {"field": "properties.name", "title": "State or territory"},
+          {"field": "rate_label", "title": "Waste recycled, 2024–25"},
+          {"field": "old_label", "title": "Ten years earlier (2014–15)"},
+          {"field": "total_label", "title": "Total waste"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 122, "lat": -25.5, "t": ["WA", "65%"], "c": "#FFFFFF"},
+          {"lon": 133.4, "lat": -19.5, "t": ["NT", "37%"], "c": "#1E2B26"},
+          {"lon": 135, "lat": -29.5, "t": ["SA", "73%"], "c": "#FFFFFF"},
+          {"lon": 144.5, "lat": -22.5, "t": ["Qld", "51%"], "c": "#1E2B26"},
+          {"lon": 146.5, "lat": -32.3, "t": ["NSW", "72%"], "c": "#FFFFFF"},
+          {"lon": 144.0, "lat": -37.15, "t": ["Vic", "62%"], "c": "#FFFFFF"},
+          {"lon": 146.6, "lat": -42.1, "t": ["Tas", "59%"], "c": "#1E2B26"},
+          {"lon": 154.2, "lat": -36.2, "t": ["ACT", "63%"], "c": "#1E2B26"}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 12, "fontWeight": 700, "lineHeight": 14, "baseline": "middle"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "t"},
+        "color": {"field": "c", "type": "nominal", "scale": null}
+      }
+    },
+    {
+      "data": {"values": [{"lon": 149.1, "lat": -35.3, "lon2": 152.6, "lat2": -36.0}]},
+      "mark": {"type": "rule", "color": "#1E2B26", "strokeWidth": 1},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "longitude2": {"field": "lon2"},
+        "latitude2": {"field": "lat2"}
+      }
+    }
+  ]
+}

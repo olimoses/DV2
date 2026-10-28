@@ -1,0 +1,181 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "Chart 7: Sankey diagram (built in Vega) of what happens to clothing Australians discard each year, by weight. Link width = tonnes. Source: Australian Fashion Council et al., National Clothing Product Stewardship Scheme Clothing Data Report (2022), Figure A, 2018-19 data. Note: the report's end-of-life figures do not sum exactly (charity outflows total 190,900 t against 190,000 t donated).",
+  "height": 440,
+  "padding": {"top": 10, "bottom": 10, "left": 5, "right": 5},
+  "autosize": "none",
+  "signals": [
+    {
+      "name": "width",
+      "init": "containerSize()[0] ? containerSize()[0] - 10 : 900",
+      "on": [{"events": "window:resize", "update": "containerSize()[0] ? containerSize()[0] - 10 : 900"}]
+    },
+    {"name": "nodeWidth", "value": 14},
+    {"name": "gap", "value": 22},
+    {"name": "labelSpace", "value": 150},
+    {"name": "colStep", "update": "(width - nodeWidth - labelSpace) / 3"},
+    {"name": "maxTotal", "update": "data('maxtot').length ? data('maxtot')[0].m : 1"},
+    {"name": "ky", "update": "(height - 4 * gap) / maxTotal"},
+    {
+      "name": "hoverLink",
+      "value": null,
+      "on": [
+        {"events": "@linkMarks:mouseover", "update": "datum.source + '>' + datum.target"},
+        {"events": "@linkMarks:mouseout", "update": "null"}
+      ]
+    }
+  ],
+  "data": [
+    {
+      "name": "nodemeta",
+      "values": [
+        {"name": "Discarded clothing", "col": 0, "order": 1, "kind": "start"},
+        {"name": "Donated to charity", "col": 1, "order": 1, "kind": "reuse"},
+        {"name": "Thrown away", "col": 1, "order": 2, "kind": "waste"},
+        {"name": "Resold in Australia", "col": 2, "order": 1, "kind": "reuse"},
+        {"name": "Exported overseas", "col": 2, "order": 2, "kind": "export"},
+        {"name": "Recycled", "col": 2, "order": 3, "kind": "reuse"},
+        {"name": "Waste to energy", "col": 2, "order": 4, "kind": "energy"},
+        {"name": "Landfill", "col": 2, "order": 5, "kind": "waste"},
+        {"name": "Middle East", "col": 3, "order": 1, "kind": "export"},
+        {"name": "Asia", "col": 3, "order": 2, "kind": "export"},
+        {"name": "Pacific", "col": 3, "order": 3, "kind": "export"},
+        {"name": "Other", "col": 3, "order": 4, "kind": "export"}
+      ]
+    },
+    {
+      "name": "links_raw",
+      "url": "data/clothing_end_of_life_2018_19.csv",
+      "format": {"type": "csv", "parse": {"tonnes": "number"}}
+    },
+    {
+      "name": "out_tot",
+      "source": "links_raw",
+      "transform": [{"type": "aggregate", "groupby": ["source"], "fields": ["tonnes"], "ops": ["sum"], "as": ["out"]}]
+    },
+    {
+      "name": "in_tot",
+      "source": "links_raw",
+      "transform": [{"type": "aggregate", "groupby": ["target"], "fields": ["tonnes"], "ops": ["sum"], "as": ["in"]}]
+    },
+    {
+      "name": "nodes_base",
+      "source": "nodemeta",
+      "transform": [
+        {"type": "lookup", "from": "out_tot", "key": "source", "fields": ["name"], "values": ["out"], "default": 0},
+        {"type": "lookup", "from": "in_tot", "key": "target", "fields": ["name"], "values": ["in"], "default": 0},
+        {"type": "formula", "expr": "datum.in > 0 ? datum.in : datum.out", "as": "value"},
+        {"type": "collect", "sort": {"field": ["col", "order"]}},
+        {"type": "stack", "groupby": ["col"], "field": "value", "sort": {"field": "order"}, "as": ["v0", "v1"]},
+        {"type": "window", "groupby": ["col"], "sort": {"field": "order"}, "ops": ["row_number"], "as": ["idx"]},
+        {"type": "joinaggregate", "groupby": ["col"], "fields": ["value", "value"], "ops": ["sum", "count"], "as": ["colSum", "colCount"]}
+      ]
+    },
+    {
+      "name": "maxtot",
+      "source": "nodes_base",
+      "transform": [{"type": "aggregate", "fields": ["colSum"], "ops": ["max"], "as": ["m"]}]
+    },
+    {
+      "name": "nodes",
+      "source": "nodes_base",
+      "transform": [
+        {"type": "formula", "expr": "(height - (datum.colSum * ky + (datum.colCount - 1) * gap)) / 2", "as": "colOffset"},
+        {"type": "formula", "expr": "datum.col * colStep", "as": "px"},
+        {"type": "formula", "expr": "datum.colOffset + datum.v0 * ky + (datum.idx - 1) * gap", "as": "py0"},
+        {"type": "formula", "expr": "datum.colOffset + datum.v1 * ky + (datum.idx - 1) * gap", "as": "py1"},
+        {"type": "formula", "expr": "datum.name + ': ' + format(datum.value, ',') + ' t'", "as": "label"}
+      ]
+    },
+    {
+      "name": "links",
+      "source": "links_raw",
+      "transform": [
+        {"type": "lookup", "from": "nodemeta", "key": "name", "fields": ["target"], "values": ["order", "kind"], "as": ["torder", "tkind"]},
+        {"type": "lookup", "from": "nodemeta", "key": "name", "fields": ["source"], "values": ["order"], "as": ["sorder"]},
+        {"type": "stack", "groupby": ["source"], "field": "tonnes", "sort": {"field": "torder"}, "as": ["s0", "s1"]},
+        {"type": "stack", "groupby": ["target"], "field": "tonnes", "sort": {"field": "sorder"}, "as": ["t0", "t1"]},
+        {"type": "lookup", "from": "nodes", "key": "name", "fields": ["source"], "values": ["px", "py0"], "as": ["snx", "sny"]},
+        {"type": "lookup", "from": "nodes", "key": "name", "fields": ["target"], "values": ["px", "py0"], "as": ["tnx", "tny"]},
+        {"type": "formula", "expr": "datum.snx + nodeWidth", "as": "sx"},
+        {"type": "formula", "expr": "datum.sny + (datum.s0 + datum.s1) / 2 * ky", "as": "sy"},
+        {"type": "formula", "expr": "datum.tnx", "as": "tx"},
+        {"type": "formula", "expr": "datum.tny + (datum.t0 + datum.t1) / 2 * ky", "as": "ty"},
+        {"type": "formula", "expr": "max(1, datum.tonnes * ky)", "as": "w"},
+        {"type": "linkpath", "orient": "horizontal", "shape": "diagonal", "sourceX": "sx", "sourceY": "sy", "targetX": "tx", "targetY": "ty"}
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "kindColor",
+      "type": "ordinal",
+      "domain": ["start", "reuse", "export", "energy", "waste"],
+      "range": ["#4A5650", "#2F6B4F", "#C27B2E", "#9AA39E", "#5E2E0E"]
+    }
+  ],
+  "marks": [
+    {
+      "name": "linkMarks",
+      "type": "path",
+      "from": {"data": "links"},
+      "encode": {
+        "update": {
+          "path": {"field": "path"},
+          "stroke": {"scale": "kindColor", "field": "tkind"},
+          "strokeWidth": {"field": "w"},
+          "strokeOpacity": {"signal": "hoverLink === datum.source + '>' + datum.target ? 0.75 : 0.35"},
+          "tooltip": {"signal": "{'From': datum.source, 'To': datum.target, 'Amount': format(datum.tonnes, ',') + ' tonnes a year'}"}
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {"data": "nodes"},
+      "encode": {
+        "update": {
+          "x": {"field": "px"},
+          "width": {"signal": "nodeWidth"},
+          "y": {"field": "py0"},
+          "y2": {"field": "py1"},
+          "fill": {"scale": "kindColor", "field": "kind"},
+          "tooltip": {"signal": "{'Stage': datum.name, 'Amount': format(datum.value, ',') + ' tonnes a year'}"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "nodes"},
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.px + nodeWidth + 6"},
+          "y": {"signal": "(datum.py0 + datum.py1) / 2"},
+          "text": {"field": "label"},
+          "baseline": {"value": "middle"},
+          "font": {"value": "Bricolage Grotesque, Helvetica, Arial, sans-serif"},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": 600},
+          "stroke": {"value": "#F7F8F5"},
+          "strokeWidth": {"value": 4},
+          "strokeJoin": {"value": "round"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "nodes"},
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.px + nodeWidth + 6"},
+          "y": {"signal": "(datum.py0 + datum.py1) / 2"},
+          "text": {"field": "label"},
+          "baseline": {"value": "middle"},
+          "font": {"value": "Bricolage Grotesque, Helvetica, Arial, sans-serif"},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": 600},
+          "fill": {"value": "#1E2B26"}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+source,target,tonnes
+Discarded clothing,Donated to charity,190000
+Discarded clothing,Thrown away,205000
+Donated to charity,Resold in Australia,51000
+Donated to charity,Exported overseas,105900
+Donated to charity,Recycled,7000
+Donated to charity,Landfill,27000
+Thrown away,Landfill,200000
+Thrown away,Waste to energy,5000
+Exported overseas,Middle East,58000
+Exported overseas,Asia,37000
+Exported overseas,Pacific,8400
+Exported overseas,Other,2500

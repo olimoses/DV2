@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The real price tag: sustainable shopping in Australia</title>
+  <meta name="description" content="A data story about what Australians buy, what we say we care about, and where our stuff ends up.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400&display=swap" rel="stylesheet">
+
+  <!-- Vega, Vega-Lite and Vega-Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.16.3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="wrap">
+      <h1>The real price&nbsp;tag</h1>
+      <p class="standfirst">What Australians buy, what we say we care about, and where our stuff ends up.</p>
+
+      <figure class="hero-figure">
+        <div id="hero_calendar" class="vis"></div>
+        <figcaption>
+          Each square is one day of 2026. If everyone on Earth lived like Australians, the planet’s
+          resources for the whole year would have run out on 16 March. Everything after that is borrowed.
+        </figcaption>
+      </figure>
+
+      <p class="byline">By Oliver Moses, October 2026</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ============ CHAPTER 1: OUR FOOTPRINT ============ -->
+    <section class="chapter" id="footprint">
+      <h2><span class="num">1</span> We spend the year’s budget early</h2>
+      <div class="prose">
+        <p>
+          A country’s <strong>Overshoot Day</strong> is the date by which humanity would use up everything
+          nature can renew in a year, if everyone lived like that country’s people. The earlier the date,
+          the heavier the footprint.
+        </p>
+        <p>
+          In 2026, Australia reached its Overshoot Day on 16 March, the 10th earliest of the 82 countries
+          on the list. The nine countries that got there sooner include Qatar, Canada and the United States.
+        </p>
+      </div>
+
+      <figure class="chart">
+        <h3 class="chart-title">When each country’s Overshoot Day falls in 2026</h3>
+        <p class="chart-sub">Darker countries run out sooner. Hover over a country for its date, or click a legend item to highlight those countries.</p>
+        <div id="overshoot_map" class="vis"></div>
+        <figcaption>
+          Singapore (23 February), Bahrain (11 March) and Malta (16 April) are too small to show at this scale.
+          Source: <a href="#">Global Footprint Network, Country Overshoot Days 2026</a>. <!-- replace # with your bookmarked URL -->
+        </figcaption>
+      </figure>
+    </section>
+
+        <!-- ============ CHAPTER 2: THE GROCERY BASKET ============ -->
+    <section class="chapter" id="basket">
+      <h2><span class="num">2</span> At the checkout, price wins</h2>
+      <div class="prose">
+        <p>
+          Asked what matters most when choosing food, almost half of Australians said price, promotions
+          or loyalty rewards. Only 12% put the environment first.
+        </p>
+      </div>
+
+      <figure class="chart">
+        <h3 class="chart-title">If 100 Australians chose their food by one thing</h3>
+        <p class="chart-sub">Each grid is 100 people. Filled squares show how many ranked that factor as the most important when buying food.</p>
+        <div id="food_priorities_waffle" class="vis"></div>
+        <figcaption>
+          Figures add to 101 because of rounding in the original report. Base: 1,002 Australian adults, surveyed January to February 2025.
+          Source: <a href="#">PwC, Voice of the Consumer Survey 2025</a>, p.5. <!-- replace # with your URL -->
+        </figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          Caring about the planet still shows up at the checkout, just in cheaper ways. Among Australians worried
+          about climate change, the most common changes are buying only what they need and wasting less, habits
+          that also save money. Paying for food with a sustainability certification is far less common.
+        </p>
+        <p>
+          And when Australians do look for something sustainable, they look for “made in Australia” much more
+          than shoppers in other countries, and care less about pesticides, packaging and fair trade.
+        </p>
+      </div>
+
+      <div class="chart-row">
+        <figure class="chart">
+          <h3 class="chart-title">What climate-worried Australians actually do</h3>
+          <p class="chart-sub">Share who have taken each action to reduce their climate impact through the food they buy.</p>
+          <div id="climate_actions_bar" class="vis"></div>
+          <figcaption>
+            Base: Australians who said climate change worries them. Source: PwC, Voice of the Consumer Survey 2025, p.11.
+          </figcaption>
+        </figure>
+
+        <figure class="chart">
+          <h3 class="chart-title">The green feature shoppers care about most</h3>
+          <p class="chart-sub">Share of shoppers who rate each sustainable practice as the most important one when buying food. Hover over the chart to identify each line.</p>
+          <div id="practices_slope" class="vis"></div>
+          <figcaption>
+            Other countries: 20,073 shoppers in 28 countries. Source: PwC, Voice of the Consumer Survey 2025, p.12.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="prose">
+        <p>
+          The same pattern shows up when people are asked to pay extra. Only 35% of Australians would pay more
+          to support the health of the land, compared with 44% of shoppers globally. Which raises a question:
+          when Australians do pay for a green label, can they trust it?
+        </p>
+      </div>
+    </section>
+
+        <!-- ============ CHAPTER 3: LABELS ============ -->
+    <section class="chapter" id="labels">
+      <h2><span class="num">3</span> Can you trust the label?</h2>
+      <div class="prose">
+        <p>
+          In October 2022, the consumer watchdog, the ACCC, checked the websites of 247 businesses across eight
+          sectors. More than half made environmental claims that raised concerns: vague words like
+          “eco-friendly” with nothing to back them up, green goals with no plan, and logos designed to look like
+          official certifications.
+        </p>
+      </div>
+
+      <figure class="chart">
+        <h3 class="chart-title">Share of businesses whose green claims raised concerns, by sector</h3>
+        <p class="chart-sub">Each column is one sector. Its width shows how many businesses were checked. Hover over a column to highlight it.</p>
+        <div id="greenwashing_mosaic" class="vis"></div>
+        <figcaption>
+          Source: <a href="#">ACCC, Greenwashing by businesses in Australia</a>, March 2023. <!-- replace # with your URL -->
+        </figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          The three worst sectors are things most of us buy every week: cosmetics, clothes and food.
+        </p>
+        <p>
+          Independent certification is meant to cut through the noise, and “certified organic” is one of the most
+          familiar labels. Australia has more certified organic farmland than any other country by a huge margin.
+          But look at the colours: as a share of all its farmland, Australia (15%) trails Austria (27%),
+          Uruguay (25%) and Italy (19%).
+        </p>
+      </div>
+
+      <figure class="chart">
+        <h3 class="chart-title">Where the world’s certified organic farmland is</h3>
+        <p class="chart-sub">Circle size shows the area of organic farmland. Colour shows how much of each country’s farmland is organic. Click a colour in the legend to filter.</p>
+        <div id="organic_symbol_map" class="vis"></div>
+        <figcaption>
+          Shows the 99 countries with at least 10,000 hectares of organic farmland (99.8% of the world total). The smallest circles are enlarged slightly so they stay visible.
+          Includes land being converted to organic. Data for 2023, the latest available.
+          Source: <a href="#">Our World in Data, based on FAO (2025)</a>. <!-- replace # with your URL -->
+          Grazing land: <a href="https://orgprints.org/id/eprint/35566/1/Paull2019.OA.Australia51%25.JEPSD.pdf">Paull (2019), Organic agriculture in Australia</a>.
+        </figcaption>
+      </figure>
+    </section>
+
+        <!-- ============ CHAPTER 4: FAST FASHION ============ -->
+    <section class="chapter" id="fashion">
+      <h2><span class="num">4</span> Where our old clothes go</h2>
+      <div class="prose">
+        <p>
+          Australians buy around 56 new items of clothing each, every year. We also get rid of almost
+          400,000 tonnes of clothing a year, and just over half of it goes straight in the bin.
+        </p>
+        <p>
+          The rest is donated to charity. But op shops can only resell about a quarter of what they receive.
+          More than half of all donated clothing is packed up and shipped overseas.
+        </p>
+      </div>
+
+      <figure class="chart">
+        <h3 class="chart-title">What happens to the clothes Australians get rid of each year</h3>
+        <p class="chart-sub">By weight, 2018–19 (t = tonnes). The width of each flow shows how much clothing takes that path. Hover over a flow for details.</p>
+        <div id="clothing_sankey" class="vis"></div>
+        <figcaption>
+          Figures are estimates and don’t add up exactly in the original report. Redrawn from figures in
+          <a href="#">Australian Fashion Council et al., National Clothing Product Stewardship Scheme: Clothing Data Report</a> (2022), p.3. <!-- replace # with your URL -->
+        </figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          So where does it go? The latest trade figures show Australia shipped 123,500 tonnes of worn clothing
+          overseas in 2025. More than half went to the United Arab Emirates, a sorting hub that sells clothing
+          on to other countries. Much of it ends up in places that lack the managed landfills Australia relies on.
+        </p>
+      </div>
+
+      <figure class="chart">
+        <h3 class="chart-title">Where Australia’s worn clothing was shipped in 2025</h3>
+        <p class="chart-sub">Line thickness and circle size show tonnes received. Hover over a line or circle for details.</p>
+        <div id="clothing_flow_map" class="vis"></div>
+        <figcaption>
+          Shows the 38 destinations that received at least 10 tonnes (99.97% of the total). These are 2025 trade figures,
+          so totals differ from the 2018–19 estimates above. Equal Earth projection, centred on Australia.
+          Source: <a href="#">UN Comtrade</a>, worn clothing exports (HS code 6309). Sorting hubs and landfill: Clothing Data Report (2022), pp.23–24. <!-- replace # with your URL -->
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ CHAPTER 5: BACK HOME ============ -->
+    <section class="chapter" id="recycling">
+      <h2><span class="num">5</span> What we recycle at home</h2>
+      <div class="prose">
+        <p>
+          Australia recycled 64% of its waste in 2024–25, but how much depends on where you live. South Australia,
+          home of the country’s first container deposit scheme in 1977, recycled 73%. The Northern Territory
+          recycled just over a third. Most states have improved a lot over the past decade.
+        </p>
+        <p>
+          Break it down by material and a clear pattern appears. Metals and building rubble are mostly recycled
+          everywhere. Plastics rarely are. And textiles, including the clothes from the last chapter, almost never
+          are: outside South Australia, no state recycles more than 7%.
+        </p>
+      </div>
+
+      <div class="chart-row">
+        <figure class="chart">
+          <h3 class="chart-title">Share of waste recycled, by state and territory</h3>
+          <p class="chart-sub">2024–25. Hover over a state to compare it with ten years earlier.</p>
+          <div id="state_recycling_map" class="vis"></div>
+          <figcaption>
+            Albers equal-area projection. Recycling rate = tonnes recycled ÷ all waste generated (energy recovery not counted).
+          </figcaption>
+        </figure>
+
+        <figure class="chart">
+          <h3 class="chart-title">Share of each material recycled</h3>
+          <p class="chart-sub">2024–25. Darker green means more of that material is recycled. Hover over a cell for details.</p>
+          <div id="recycling_heatmap" class="vis"></div>
+          <figcaption>
+            Source: <a href="#">DCCEEW, National Waste and Resource Recovery Database 2026</a>. <!-- replace # with your URL -->
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+        <!-- ============ CHAPTER 6: THE SHIFT ============ -->
+    <section class="chapter" id="shift">
+      <h2><span class="num">6</span> The second-hand shift</h2>
+      <div class="prose">
+        <p>
+          There are signs of change. In 2016, hardly anyone in Australia searched Google for Depop, an app for
+          buying and selling second-hand clothes. A decade later, it is searched about as often as charity shops,
+          and interest in charity shops has itself roughly doubled since 2019.
+        </p>
+      </div>
+
+      <figure class="chart">
+        <h3 class="chart-title">Google searches in Australia for second-hand shopping</h3>
+        <p class="chart-sub">Thick lines show the 12-month average; faint lines show each month. Hover over the chart to see the values for any month.</p>
+        <div id="secondhand_trends_line" class="vis"></div>
+        <figcaption>
+          Search interest is relative: 100 is the busiest month for any of the three terms, not a number of searches.
+          Search terms: Depop (company), Charity shop (topic) and Used good (topic); Google groups related searches into topics.
+          November 2016 to September 2026. Source: <a href="#">Google Trends</a>. <!-- replace # with your URL -->
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ CLOSING ============ -->
+    <section class="chapter closing" id="closing">
+      <h2>So, what’s the real price tag?</h2>
+      <div class="prose">
+        <p>
+          Australians use up a year’s worth of the planet’s resources by mid-March. At the checkout, price still
+          wins, and the green labels meant to guide us are often vague or unproven. Much of what we donate ends up
+          overseas, and almost none of our textile waste is recycled at home.
+        </p>
+        <p>
+          But the habits that help most are often the cheapest ones: buying only what we need, wasting less, and
+          buying second-hand. More and more Australians are already doing all three.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+    <!-- ============ FOOTER / METADATA ============ -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <h2>About this page</h2>
+      <p>Created by Oliver Moses for FIT3179 Data Visualisation, Monash University. Published October 2026.</p>
+
+      <h3>Data sources</h3>
+      <ul class="sources">
+        <li>Global Footprint Network, <a href="#">Country Overshoot Days 2026</a>.</li>
+        <li>PwC Australia, <a href="#">Voice of the Consumer Survey 2025</a>.</li>
+        <li>Australian Competition and Consumer Commission, <a href="#">Greenwashing by businesses in Australia</a> (March 2023).</li>
+        <li>Our World in Data, <a href="#">Organic agricultural area</a>, based on FAO (2025).</li>
+        <li>Paull, J. (2019), <a href="https://orgprints.org/id/eprint/35566/1/Paull2019.OA.Australia51%25.JEPSD.pdf">Organic agriculture in Australia: attaining the global majority (51%)</a>.</li>
+        <li>Australian Fashion Council et al., <a href="#">National Clothing Product Stewardship Scheme: Clothing Data Report</a> (2022).</li>
+        <li>United Nations, <a href="#">UN Comtrade</a>, worn clothing exports (HS 6309), 2025.</li>
+        <li>Department of Climate Change, Energy, the Environment and Water, <a href="#">National Waste and Resource Recovery Database 2026</a>.</li>
+        <li><a href="#">Google Trends</a>, Australia, 2016 to 2026.</li>
+        <li>Map outlines: Natural Earth via vega-datasets; Australian state boundaries from the Australian Bureau of Statistics via rowanhogan/australian-states on GitHub.</li>
+      </ul>
+
+      <h3>Tools and acknowledgements</h3>
+      <p>
+        Charts built with Vega-Lite and Vega. Typefaces: Bricolage Grotesque and Source Serif 4 (Google Fonts).
+        Generative AI (Claude, by Anthropic) was used to help clean data, write chart code and edit text.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

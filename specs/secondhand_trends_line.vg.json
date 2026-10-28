@@ -1,0 +1,115 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 11: Line chart of Google search interest in Australia for Depop, charity shops and used goods, Nov 2016 to Sep 2026. Thin lines = monthly values; thick lines = 12-month rolling average. Source: Google Trends.",
+  "width": "container",
+  "height": 380,
+  "data": {"url": "data/google_trends_monthly.csv", "format": {"parse": {"month": "date:'%Y-%m-%d'"}}},
+  "transform": [
+    {"window": [{"op": "mean", "field": "interest", "as": "avg12"}], "frame": [-11, 0], "groupby": ["term"], "sort": [{"field": "month"}]},
+    {"calculate": "datum.term == 'Used good' ? 'Used goods' : datum.term == 'Charity shop' ? 'Charity shops' : 'Depop'", "as": "label"}
+  ],
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "temporal",
+      "title": null,
+      "scale": {"domain": [{"year": 2016, "month": 11, "date": 1}, {"year": 2027, "month": 10, "date": 1}], "nice": false},
+      "axis": {
+        "format": "%Y",
+        "values": [
+          {"year": 2017, "month": 1, "date": 1}, {"year": 2018, "month": 1, "date": 1}, {"year": 2019, "month": 1, "date": 1},
+          {"year": 2020, "month": 1, "date": 1}, {"year": 2021, "month": 1, "date": 1}, {"year": 2022, "month": 1, "date": 1},
+          {"year": 2023, "month": 1, "date": 1}, {"year": 2024, "month": 1, "date": 1}, {"year": 2025, "month": 1, "date": 1},
+          {"year": 2026, "month": 1, "date": 1}
+        ],
+        "grid": false,
+        "domainColor": "#C3C9C4"
+      }
+    },
+    "y": {
+      "field": "interest",
+      "type": "quantitative",
+      "title": "Search interest (100 = busiest month)",
+      "scale": {"domain": [0, 100]},
+      "axis": {"tickCount": 5, "domain": false, "ticks": false}
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {"d": "2020-04-01", "t": "COVID-19 lockdowns:", "t2": "op shops close"},
+          {"d": "2022-01-01", "t": "Google changes how", "t2": "it collects data"}
+        ]
+      },
+      "layer": [
+        {"mark": {"type": "rule", "strokeDash": [3, 3], "color": "#9AA39E"}, "encoding": {"x": {"field": "d", "type": "temporal"}, "y": null}},
+        {
+          "mark": {"type": "text", "align": "left", "dx": 4, "y": 6, "baseline": "top", "fontSize": 11, "color": "#4A5650"},
+          "encoding": {"x": {"field": "d", "type": "temporal"}, "y": null, "text": {"field": "t"}}
+        },
+        {
+          "mark": {"type": "text", "align": "left", "dx": 4, "y": 20, "baseline": "top", "fontSize": 11, "color": "#4A5650"},
+          "encoding": {"x": {"field": "d", "type": "temporal"}, "y": null, "text": {"field": "t2"}}
+        }
+      ]
+    },
+    {
+      "mark": {"type": "line", "strokeWidth": 1, "opacity": 0.35, "interpolate": "monotone"},
+      "encoding": {
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+      }
+    },
+    {
+      "mark": {"type": "line", "strokeWidth": 3.5, "interpolate": "monotone"},
+      "encoding": {
+        "y": {"field": "avg12", "type": "quantitative"},
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+      }
+    },
+    {
+      "transform": [{"filter": "year(datum.month) == 2026 && month(datum.month) == 8"}, {"filter": "datum.term == 'Depop'"}],
+      "mark": {"type": "text", "align": "left", "dx": 8, "dy": 10, "fontSize": 13, "fontWeight": 700},
+      "encoding": {
+        "y": {"field": "avg12", "type": "quantitative"},
+        "text": {"field": "label"},
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+      }
+    },
+    {
+      "transform": [{"filter": "year(datum.month) == 2026 && month(datum.month) == 8"}, {"filter": "datum.term == 'Charity shop'"}],
+      "mark": {"type": "text", "align": "left", "dx": 8, "dy": -9, "fontSize": 13, "fontWeight": 700},
+      "encoding": {
+        "y": {"field": "avg12", "type": "quantitative"},
+        "text": {"field": "label"},
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+      }
+    },
+    {
+      "transform": [{"filter": "year(datum.month) == 2026 && month(datum.month) == 8"}, {"filter": "datum.term == 'Used good'"}],
+      "mark": {"type": "text", "align": "left", "dx": 8, "dy": 0, "fontSize": 13, "fontWeight": 700},
+      "encoding": {
+        "y": {"field": "avg12", "type": "quantitative"},
+        "text": {"field": "label"},
+        "color": {"field": "term", "type": "nominal", "scale": {"domain": ["Depop", "Charity shop", "Used good"], "range": ["#C27B2E", "#2F6B4F", "#B4BCB6"]}, "legend": null}
+      }
+    },
+    {
+      "transform": [{"pivot": "term", "value": "interest", "groupby": ["month"]}],
+      "params": [
+        {"name": "hover_month", "select": {"type": "point", "fields": ["month"], "nearest": true, "on": "pointerover", "clear": "pointerout"}}
+      ],
+      "mark": {"type": "rule", "color": "#1E2B26", "strokeWidth": 1},
+      "encoding": {
+        "y": null,
+        "opacity": {"condition": {"param": "hover_month", "empty": false, "value": 0.6}, "value": 0},
+        "tooltip": [
+          {"field": "month", "type": "temporal", "format": "%B %Y", "title": "Month"},
+          {"field": "Depop", "type": "quantitative"},
+          {"field": "Charity shop", "type": "quantitative", "title": "Charity shops"},
+          {"field": "Used good", "type": "quantitative", "title": "Used goods"}
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Hero: the 365 days of 2026 as a grid of 73 columns x 5 rows, filled day by day. The first 75 days (up to Australia's Overshoot Day, 16 March) are green; the rest of the year is 'borrowed'.",
+  "width": "container",
+  "height": 78,
+  "data": {"sequence": {"start": 1, "stop": 366, "as": "day"}},
+  "transform": [
+    {"calculate": "datetime(2026, 0, datum.day)", "as": "date"},
+    {"calculate": "floor((datum.day - 1) / 5)", "as": "col"},
+    {"calculate": "(datum.day - 1) % 5", "as": "row"},
+    {"calculate": "datum.day <= 75 ? 'A full year of nature’s budget, used up' : 'Borrowed from future years'", "as": "status"}
+  ],
+  "mark": {"type": "rect", "cornerRadius": 1.5},
+  "encoding": {
+    "x": {
+      "field": "col",
+      "type": "ordinal",
+      "title": null,
+      "scale": {"paddingInner": 0.18},
+      "axis": {
+        "orient": "bottom",
+        "domain": false,
+        "ticks": false,
+        "labelPadding": 6,
+        "labelAngle": 0,
+        "labelAlign": "left",
+        "labelExpr": "date(datetime(2026, 0, datum.value * 5 + 1)) == 1 ? timeFormat(datetime(2026, 0, datum.value * 5 + 1), '%b') : month(datetime(2026, 0, datum.value * 5 + 5)) != month(datetime(2026, 0, datum.value * 5 + 1)) ? timeFormat(datetime(2026, 0, datum.value * 5 + 5), '%b') : ''"
+      }
+    },
+    "y": {"field": "row", "type": "ordinal", "axis": null, "scale": {"paddingInner": 0.18}},
+    "color": {
+      "field": "status",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": ["A full year of nature’s budget, used up", "Borrowed from future years"],
+        "range": ["#2F6B4F", "#E3B76F"]
+      },
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal",
+        "symbolType": "square",
+        "symbolSize": 120,
+        "labelFontSize": 13,
+        "labelLimit": 0,
+        "columnPadding": 28,
+        "offset": 14
+      }
+    },
+    "tooltip": [
+      {"field": "date", "type": "temporal", "title": "Date", "format": "%-d %B"},
+      {"field": "status", "title": "Status"}
+    ]
+  }
+}

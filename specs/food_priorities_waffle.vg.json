@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 2: Waffle charts (small multiples). What Australians rank as most important when choosing food. Each grid is 100 people. Source: PwC Voice of the Consumer Survey 2025, p.5.",
+  "data": {"url": "data/pwc_food_priorities.csv"},
+  "transform": [
+    {"calculate": "sequence(1, 101)", "as": "cells"},
+    {"flatten": ["cells"], "as": ["i"]},
+    {"calculate": "floor((datum.i - 1) / 10)", "as": "row"},
+    {"calculate": "(datum.i - 1) % 10", "as": "col"},
+    {"calculate": "datum.i <= datum.pct ? datum.factor : 'Other answers'", "as": "fill_group"},
+    {"calculate": "datum.factor + ': ' + datum.pct + '%'", "as": "header"}
+  ],
+  "facet": {
+    "column": {
+      "field": "header",
+      "type": "nominal",
+      "sort": {"field": "pct", "order": "descending"},
+      "title": null,
+      "header": {"labelFontSize": 14, "labelFontWeight": 700, "labelColor": "#1E2B26", "labelAnchor": "start", "labelPadding": 8, "labelLimit": 0}
+    }
+  },
+  "spacing": 36,
+  "spec": {
+    "width": 190,
+    "height": 190,
+    "mark": {"type": "rect", "cornerRadius": 1.5},
+    "encoding": {
+      "x": {"field": "col", "type": "ordinal", "axis": null, "scale": {"paddingInner": 0.16}},
+      "y": {"field": "row", "type": "ordinal", "axis": null, "sort": "descending", "scale": {"paddingInner": 0.16}},
+      "color": {
+        "field": "fill_group",
+        "type": "nominal",
+        "legend": null,
+        "scale": {
+          "domain": ["Value for money", "Quality", "Health", "Environment", "Other answers"],
+          "range": ["#C27B2E", "#7C8A83", "#7C8A83", "#2F6B4F", "#E4E7E2"]
+        }
+      },
+      "tooltip": [
+        {"field": "factor", "title": "Most important factor"},
+        {"field": "pct", "title": "% of Australians"}
+      ]
+    }
+  }
+}

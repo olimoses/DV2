@@ -1,0 +1,132 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Chart 8: Flow map of Australia's exports of worn clothing (HS 6309) by destination, 2025. Line width and circle size = tonnes. Equal Earth projection centred on 110°E so Australia sits in the middle. Destinations receiving at least 10 tonnes shown (38 of 60; 99.97% of the total). Source: UN Comtrade.",
+  "width": "container",
+  "height": 470,
+  "projection": {"type": "equalEarth", "rotate": [-110, 0, 0]},
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#EDF1EE", "stroke": "#DCE0DB", "strokeWidth": 0.5}
+    },
+    {
+      "data": {"url": "data/world-110m.json", "format": {"type": "topojson", "feature": "countries"}},
+      "transform": [{"filter": "datum.id != 10"}],
+      "mark": {"type": "geoshape", "fill": "#E2E5E1", "stroke": "#F7F8F5", "strokeWidth": 0.6}
+    },
+    {
+      "data": {"url": "data/used_clothing_exports_2025.csv"},
+      "transform": [
+        {"filter": "datum.tonnes >= 10"},
+        {"calculate": "format(datum.tonnes, ',.0f') + ' tonnes'", "as": "t_label"},
+        {"calculate": "format(datum.share_pct, '.1f') + '%'", "as": "s_label"}
+      ],
+      "layer": [
+        {
+          "params": [
+            {"name": "hover_dest", "select": {"type": "point", "fields": ["iso3"], "on": "pointerover", "clear": "pointerout"}}
+          ],
+          "mark": {"type": "rule", "strokeCap": "round"},
+          "encoding": {
+            "longitude": {"field": "origin_lon", "type": "quantitative"},
+            "latitude": {"field": "origin_lat", "type": "quantitative"},
+            "longitude2": {"field": "lon"},
+            "latitude2": {"field": "lat"},
+            "strokeWidth": {"field": "tonnes", "type": "quantitative", "scale": {"range": [0.6, 14]}, "legend": null},
+            "color": {"condition": {"param": "hover_dest", "empty": false, "value": "#5E2E0E"}, "value": "#C27B2E"},
+            "opacity": {"condition": {"param": "hover_dest", "empty": false, "value": 0.95}, "value": 0.55},
+            "tooltip": [
+              {"field": "country", "title": "Destination"},
+              {"field": "t_label", "title": "Worn clothing received"},
+              {"field": "s_label", "title": "Share of Australia’s exports"}
+            ]
+          }
+        },
+        {
+          "mark": {"type": "circle", "stroke": "#F7F8F5", "strokeWidth": 0.8},
+          "encoding": {
+            "longitude": {"field": "lon", "type": "quantitative"},
+            "latitude": {"field": "lat", "type": "quantitative"},
+            "size": {
+              "field": "tonnes",
+              "type": "quantitative",
+              "scale": {"range": [16, 900]},
+              "legend": {
+                "orient": "bottom",
+                "title": "Worn clothing received (tonnes)",
+                "values": [1000, 10000, 50000],
+                "labelExpr": "format(datum.value, ',')",
+                "symbolFillColor": "#C27B2E",
+                "symbolStrokeColor": "#F7F8F5",
+                "titleLimit": 0
+              }
+            },
+            "color": {"value": "#94501B"},
+            "tooltip": [
+              {"field": "country", "title": "Destination"},
+              {"field": "t_label", "title": "Worn clothing received"},
+              {"field": "s_label", "title": "Share of Australia’s exports"}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "data": {"values": [{"lon": 134, "lat": -25}]},
+      "mark": {"type": "circle", "size": 70, "color": "#1E2B26"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 49, "lat": 21.5, "t": "United Arab Emirates: 69,500 t (56%)"},
+          {"lon": 63.5, "lat": 35.5, "t": "Pakistan: 30,700 t (25%)"}
+        ]
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "align": "right", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "stroke": "#F7F8F5", "strokeWidth": 4, "strokeJoin": "round"},
+          "encoding": {"longitude": {"field": "lon", "type": "quantitative"}, "latitude": {"field": "lat", "type": "quantitative"}, "text": {"field": "t"}}
+        },
+        {
+          "mark": {"type": "text", "align": "right", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "color": "#1E2B26"},
+          "encoding": {"longitude": {"field": "lon", "type": "quantitative"}, "latitude": {"field": "lat", "type": "quantitative"}, "text": {"field": "t"}}
+        }
+      ]
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 106.5, "lat": 6.5, "t": "Malaysia: 11,300 t"},
+          {"lon": 152, "lat": -4, "t": "Pacific Island nations: 6,100 t"}
+        ]
+      },
+      "layer": [
+        {
+          "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "stroke": "#F7F8F5", "strokeWidth": 4, "strokeJoin": "round"},
+          "encoding": {"longitude": {"field": "lon", "type": "quantitative"}, "latitude": {"field": "lat", "type": "quantitative"}, "text": {"field": "t"}}
+        },
+        {
+          "mark": {"type": "text", "align": "left", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "color": "#1E2B26"},
+          "encoding": {"longitude": {"field": "lon", "type": "quantitative"}, "latitude": {"field": "lat", "type": "quantitative"}, "text": {"field": "t"}}
+        }
+      ]
+    },
+    {
+      "data": {"values": [{"lon": 134, "lat": -31, "t": "Australia"}]},
+      "layer": [
+        {
+          "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "stroke": "#F7F8F5", "strokeWidth": 4, "strokeJoin": "round"},
+          "encoding": {"longitude": {"field": "lon", "type": "quantitative"}, "latitude": {"field": "lat", "type": "quantitative"}, "text": {"field": "t"}}
+        },
+        {
+          "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 12, "fontWeight": 600, "color": "#1E2B26"},
+          "encoding": {"longitude": {"field": "lon", "type": "quantitative"}, "latitude": {"field": "lat", "type": "quantitative"}, "text": {"field": "t"}}
+        }
+      ]
+    }
+  ]
+}
